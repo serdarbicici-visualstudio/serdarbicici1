@@ -12,14 +12,11 @@
             height: 100%;
         }
         .bg-image {
-            /* Set background image on the content container */
-            background-image: url('follow.jpeg'); /* Update with your image */
+            background-image: url('follow.jpg'); /* Update with your image */
             background-position: top;
             background-repeat: no-repeat;
             background-size: cover; /* Cover the entire content height */
-            /* background is stable*/
             background-attachment: fixed;
-            
         }
         .menu {
             position: fixed;
@@ -56,82 +53,219 @@
         }
         .content-container {
             display: flex;
-            flex-wrap: wrap; /* Wrap projects to the next line */
-            justify-content: center; /* Center projects horizontally */
-            padding: 0 20px; /* Add horizontal padding */
-            margin-bottom: 20vh; /* Add margin from lower end */
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
+            margin-bottom: 20vh;
         }
-        .project {
+        .content {
             background-color: rgba(0, 0, 0, 0.89);
             color: white;
             padding: 40px;
             text-align: left;
-            margin: 20px; /* Same margin on all sides */
-            border-radius: 0; /* Rectangles with sharp edges */
-            width: 45%; /* Adjusted width for two boxes with margin */
+            margin: 5vh auto; /* Smaller margin between content boxes */
+            border-radius: 0;
+            width: 60%;
+            position: relative; /* Ensure relative positioning for button */
+        }
+        .content:first-child {
+            margin-top: 20vh;
+        }
+        .content:last-child {
+            margin-bottom: 20vh;
         }
         /* Customize scrollbar */
         ::-webkit-scrollbar {
             width: 12px;
         }
         ::-webkit-scrollbar-track {
-            background: #296ACC; /* Red scrollbar background */
+            background: #0046f2;
         }
         ::-webkit-scrollbar-thumb {
-            background-color: #999de2; /* Scrollbar color */
+            background-color: #eb7200;
             border-radius: 10px;
-            border: 3px solid #848fd9;
+            border: 3px solid #0046f4;
         }
-        /* Hide menu when scrolled down */
         .menu.hidden {
-            top: -60px; /* Move the menu out of the viewport */
+            top: -60px;
+        }
+        .project-link-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .project-link-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
         }
     </style>
+    <!-- Include Marked.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <div class="bg-image">
         <div class="menu" id="menu">
             <div class="nav-links">
-                <a href="index.html" class="go-back">&larr;</a>
-                <a href="index.html">Home</a>
-                <a href="projects.html">Projects</a>
+                
+                <a href="home.html">Home</a>
+                <a href="about-me.html">About Me</a>
             </div>
         </div>
         <div class="content-container">
-            <div class="project">
-                <h2>Project 1</h2>
-                <p>This is a description of project 1.</p>
+            <div class="content" id="content1">
+                <!-- Placeholder for Markdown content for Project 1 -->
+                <div id="markdown-content1"></div>
+                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
             </div>
-            <div class="project">
-                <h2>Project 2</h2>
-                <p>This is a description of project 2.</p>
+            <div class="content" id="content2">
+                <!-- Placeholder for Markdown content for Project 2 -->
+                <div id="markdown-content2"></div>
+                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
             </div>
-            <div class="project">
-                <h2>Project 3</h2>
-                <p>This is a description of project 3.</p>
+            <div class="content" id="content3">
+                <!-- Placeholder for Markdown content for Project 3 -->
+                <div id="markdown-content3"></div>
+                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
             </div>
-            <div class="project">
-                <h2>Project 4</h2>
-                <p>This is a description of project 4.</p>
+            <div class="content" id="content4">
+                <!-- Placeholder for Markdown content for Project 4 -->
+                <div id="markdown-content4"></div>
+                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
             </div>
-            <div class="project">
-                <h2>Project 5</h2>
-                <p>This is a description of project 5.</p>
+            <div class="content" id="content5">
+                <!-- Placeholder for Markdown content for Project 5 -->
+                <div id="markdown-content5"></div>
+                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
+            </div>
+            <div class="content" id="content6">
+                <!-- Placeholder for Markdown content for Project 6 -->
+                <div id="markdown-content6"></div>
+                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
-            // Hide menu when scrolled down
-            window.addEventListener('scroll', () => {
-                const menu = document.getElementById('menu');
-                if (window.scrollY > 0) {
-                    menu.classList.add('hidden');
-                } else {
-                    menu.classList.remove('hidden');
-                }
-            });
+            // Define your Markdown content for each project
+            const markdown1 = `
+# Inventory Program
+Warehouse inventory tracking program for keeping track of inventory input & outputs and shipment information. Interface is Turkish and developed for a local company. 
+
+## Languages
+- Python
+
+## Libraries
+- Tkinter
+
+`;
+
+            const markdown2 = `
+# Dataset Distillation for Cat and Dog Image Classification
+### BLG454E - Learning from Data Course Project
+
+This project reduces the LSUN cat and dog dataset using random sampling, clustering, and data augmentation. Convolutional neural networks trained on these smaller datasets aim to match the accuracy of those trained on the full dataset, with less storage and processing required.
+
+## Languages
+- Python
+
+## Libraries
+- TensorFlow
+- Keras
+- OpenCV
+- NumPy
+- Scikit-learn
+`;
+
+
+            const markdown3 = `
+# Optimizing İSPARK Parking Lot Management in İstanbul
+### YZV202E - Optimization for Data Science Course Project
+
+This project uses a genetic algorithm, inspired by natural selection, to optimize car-to-parking lot matchups in Istanbul. The algorithm evolves solutions through selection, crossover, and mutation, considering factors like budget, gas cost, and parking cost. This approach aims to improve the traditional method of assigning cars to the nearest parking space, addressing the city's parking challenges.
+
+## Languages
+- Python
+
+## Libraries
+- NumPy
+- Matplotlib
+- Pandas
+`;
+            const markdown4 = `
+# Item-based Filtering Enhanced by SVD
+### BLG202E - Numerical Methods in Computer Engineering Course Project
+
+This was a paper implementation project that aimed to mathematically apply the item-based filtering method enhanced by Singular Value Decomposition to a dataset. The project aimed to improve the accuracy of the item-based filtering method by incorporating SVD, which is a matrix factorization technique that reduces the dimensionality of the dataset.
+
+## Languages
+- Python
+
+## Libraries
+- NumPy
+- Pandas
+
+
+
+`;
+            const markdown5 = `
+# Examining the Relationship of General Education Levels and Regional Employment in Turkey
+### YZV211E - Intro to Data Science and Engineering Course Project	
+
+This project aimed to analyze the relationship between the general education levels of Turkish provinces and the employment rates in those regions. The project used data from the Turkish Statistical Institute (TUIK) and aimed to identify any correlations between the two factors. The project involved data cleaning, visualization, and statistical analysis to draw conclusions about the relationship between education and employment in Turkey.
+
+## Languages
+- Python
+
+## Libraries
+- NumPy
+- Pandas
+- Matplotlib
+- SciPy
+
+`;
+            const markdown6 = `
+# Spelling Bee
+### YZV104 - Introduction to Programming for Data Science Course Project
+
+Spelling Bee is a desktop word game inspired by the New York Times. Players form valid words from randomly generated letters, validated against a dictionary. The game features hints, progress tracking, and supports additional gameplay options.
+
+## Languages
+- Python
+
+## Libraries
+- Tkinter
+- Matplotlib
+- Requests
+- BeautifulSoup
+
+
+`;
+
+
+            // Convert Markdown to HTML and set it to the respective content divs
+            document.getElementById('markdown-content1').innerHTML = marked.parse(markdown1);
+            document.getElementById('markdown-content2').innerHTML = marked.parse(markdown2);
+            document.getElementById('markdown-content3').innerHTML = marked.parse(markdown3);
+            document.getElementById('markdown-content4').innerHTML = marked.parse(markdown4);
+            document.getElementById('markdown-content5').innerHTML = marked.parse(markdown5);
+            document.getElementById('markdown-content6').innerHTML = marked.parse(markdown6);
+        });
+
+        // Hide menu when scrolled down
+        window.addEventListener
+        window.addEventListener('scroll', () => {
+            const menu = document.getElementById('menu');
+            if (window.scrollY > 0) {
+                menu.classList.add('hidden');
+            } else {
+                menu.classList.remove('hidden');
+            }
         });
     </script>
 </body>
