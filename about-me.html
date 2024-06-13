@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100%;
+        }
+        .bg-image {
+            /* Set background image on the content container */
+            background-image: url('ascent-longer.png'); /* Update with your image */
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: cover; /* Cover the entire content height */
+            background-attachment: fixed;
+        }
+        .menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: top 0.3s; /* Smooth transition for menu animation */
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Add gap between links */
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px; /* Add padding for better alignment */
+            border-radius: 5px; /* Add rounded corners */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Lighten the background on hover */
+        }
+        .nav-links .go-back {
+            margin-right: 20px; /* Add margin to the right */
+        }
+        .content-container {
+            /* Ensure the container covers the full viewport height */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex-grow: 1; /* Allow the content to grow and fill the available space */
+            background-color: rgba(0, 0, 0, 0.89); /* Less transparent */
+            color: white;
+            padding: 40px;
+            text-align: left;
+            width: 60%; /* Increased width */
+            margin: 20vh auto 20vh; /* Center horizontally and add top and bottom margin */
+            overflow-y: auto; /* Add vertical scrollbar to content */
+        }
+        /* Customize scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #296ACC; /* Red scrollbar background */
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #999de2; /* Scrollbar color */
+            border-radius: 10px;
+            border: 3px solid #848fd9;
+        }
+        /* Hide menu when scrolled down */
+        .menu.hidden {
+            top: -60px; /* Move the menu out of the viewport */
+        }
+        /* Other styles... */
+    </style>
+    <!-- Include Marked.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="bg-image">
+        <div class="menu" id="menu">
+            <div class="nav-links">
+                <a href="index.html" class="go-back">&larr;</a>
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+            </div>
+        </div>
+        <div class="content-container">
+            <div class="content" id="content">
+                <!-- Placeholder for Markdown content -->
+                <div id="markdown-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Define your Markdown content
+            const markdown = `
+# About Me
+
+Hello there, I'm **Serdar Biçici**. I'm a third-year student at *İstanbul Technical University*, studying *Artificial Intelligence and Data Engineering*. I'm
+the ex-president of the **ITU Artificial Intelligence Club** and the current chairman of the **Supervisory Board**. I'm an engineering enthusiast and a computer science lover. I also enjoy *sci-fi*, *sports*, and *LEGOs*.
+
+## Education
+- **İstanbul Technical University**: *Artificial Intelligence and Data Engineering* (2021-2026)
+- **Private ENKA Anatolian and Technical High School**: *Industrial Automation Technologies* (2017-2021)
+
+## Skills
+- **Python**
+- **C++**
+- **MS Office**
+- **Data Science**
+- **Data Engineering**
+- **Machine Learning**
+
+## Experience
+- **ESO Endüstriyel Elektronik AŞ**: *Anatolian Technical High School Intern* (June-July 2019)
+
+## Leadership Activities
+- President of **ITU Artificial Intelligence Club** (2023-2024)
+- Chairman of the **Supervisory Board of ITU Artificial Intelligence Club** (2024-2025)
+- Founding president of **ENKA LEGO Club** and team captain of **ENKA TECH LEGO Team**
+`;
+
+            // Convert Markdown to HTML and set it to the content div
+            document.getElementById('markdown-content').innerHTML = marked.parse(markdown);
+        });
+
+        // Hide menu when scrolled down
+        window.addEventListener('scroll', () => {
+            const menu = document.getElementById('menu');
+            if (window.scrollY > 0) {
+                menu.classList.add('hidden');
+            } else {
+                menu.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
