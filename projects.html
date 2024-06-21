@@ -117,35 +117,40 @@
             </div>
         </div>
         <div class="content-container">
+            <div class="content" id="content0">
+                <!-- Placeholder for Markdown content for Project 1 -->
+                <div id="markdown-content0"></div>
+                <a href="https://github.com/serdarbicici-visualstudio/tictactoe_ai" class="project-link-btn" >View in GitHub</a>
+            </div>
             <div class="content" id="content1">
                 <!-- Placeholder for Markdown content for Project 1 -->
                 <div id="markdown-content1"></div>
-                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
+                <a href="https://github.com/serdarbicici-visualstudio/stock_tracking_program" class="project-link-btn" >View in GitHub</a>
             </div>
             <div class="content" id="content2">
                 <!-- Placeholder for Markdown content for Project 2 -->
                 <div id="markdown-content2"></div>
-                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
+                <a href="https://github.com/serdarbicici-visualstudio/BLG454E-Learning-from-Data" class="project-link-btn" >View in GitHub</a>
             </div>
             <div class="content" id="content3">
                 <!-- Placeholder for Markdown content for Project 3 -->
                 <div id="markdown-content3"></div>
-                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
+                <a href="https://github.com/serdarbicici-visualstudio/YZV202E-Optimization-for-Data-Science" class="project-link-btn" >View in GitHub</a>
             </div>
             <div class="content" id="content4">
                 <!-- Placeholder for Markdown content for Project 4 -->
                 <div id="markdown-content4"></div>
-                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
+                <a href="https://github.com/serdarbicici-visualstudio/BLG202E-Numerical-Methods-in-CE" class="project-link-btn" >View in GitHub</a>
             </div>
             <div class="content" id="content5">
                 <!-- Placeholder for Markdown content for Project 5 -->
                 <div id="markdown-content5"></div>
-                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
+                <a href="https://github.com/serdarbicici-visualstudio/YZV211E-Intro-to-Data-Science-and-Eng." class="project-link-btn" >View in GitHub</a>
             </div>
             <div class="content" id="content6">
                 <!-- Placeholder for Markdown content for Project 6 -->
                 <div id="markdown-content6"></div>
-                <a href="#" class="project-link-btn" target="_blank">Project Link</a>
+                <a href="https://github.com/serdarbicici-visualstudio/YZV104E-Int.toPrg.forDataSci.-Python-" class="project-link-btn" >View in GitHub</a>
             </div>
         </div>
     </div>
@@ -153,6 +158,20 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             // Define your Markdown content for each project
+            const markdown0 = `
+# Tic-Tac-Toe with Q-Learning
+
+This project implements a Tic-Tac-Toe game using Q-Learning. The game allows the player to play against an AI agent that learns from its mistakes and improves its gameplay over time. The AI agent uses a Q-table to store the expected rewards for each action in a given state, updating the table based on the rewards received during gameplay.
+
+## Languages
+- Python
+
+## Libraries
+- Random
+- Copy
+
+`;
+
             const markdown1 = `
 # Inventory Program
 Warehouse inventory tracking program for keeping track of inventory input & outputs and shipment information. Interface is Turkish and developed for a local company. 
@@ -249,6 +268,7 @@ Spelling Bee is a desktop word game inspired by the New York Times. Players form
 
 
             // Convert Markdown to HTML and set it to the respective content divs
+            document.getElementById('markdown-content0').innerHTML = marked.parse(markdown0);
             document.getElementById('markdown-content1').innerHTML = marked.parse(markdown1);
             document.getElementById('markdown-content2').innerHTML = marked.parse(markdown2);
             document.getElementById('markdown-content3').innerHTML = marked.parse(markdown3);
