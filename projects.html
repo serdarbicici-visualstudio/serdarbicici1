@@ -126,6 +126,11 @@
             </div>
         </div>
         <div class="content-container">
+            <div class="content" id="content7">
+                <!-- Placeholder for Markdown content for Project 1 -->
+                <div id="markdown-content7"></div>
+                <a href="https://github.com/serdarbicici-visualstudio/image-distillation" class="project-link-btn" >View in GitHub</a>
+            </div>
             <div class="content" id="content0">
                 <!-- Placeholder for Markdown content for Project 1 -->
                 <div id="markdown-content0"></div>
@@ -167,6 +172,22 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             // Define your Markdown content for each project
+            const markdown7 = `
+# Image Distillation
+This Python package aims to reduce the size of the image based datasets while preserving the important features of the images. The project uses clustering and grid based sampling techniques to distill the dataset, reducing the storage and processing requirements while maintaining the accuracy of the models trained on the distilled dataset.
+
+
+## Languages
+- Python
+
+## Libraries
+- NumPy
+- Matplotlib
+- Scikit-learn
+`;
+
+
+
             const markdown0 = `
 # Tic-Tac-Toe with Q-Learning
 
@@ -277,6 +298,7 @@ Spelling Bee is a desktop word game inspired by the New York Times. Players form
 
 
             // Convert Markdown to HTML and set it to the respective content divs
+            document.getElementById('markdown-content7').innerHTML = marked.parse(markdown7);
             document.getElementById('markdown-content0').innerHTML = marked.parse(markdown0);
             document.getElementById('markdown-content1').innerHTML = marked.parse(markdown1);
             document.getElementById('markdown-content2').innerHTML = marked.parse(markdown2);
