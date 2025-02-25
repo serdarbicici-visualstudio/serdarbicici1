@@ -126,6 +126,16 @@
             </div>
         </div>
         <div class="content-container">
+            <div class="content" id="content9">
+                <!-- Placeholder for Markdown content for Project 1 -->
+                <div id="markdown-content9"></div>
+                <a href="https://github.com/serdarbicici-visualstudio/restaurant_api" class="project-link-btn" >View in GitHub</a>
+            </div>
+            <div class="content" id="content8">
+                <!-- Placeholder for Markdown content for Project 1 -->
+                <div id="markdown-content8"></div>
+                <a href="https://github.com/serdarbicici-visualstudio/YZV303E_project" class="project-link-btn" >View in GitHub</a>
+            </div>
             <div class="content" id="content7">
                 <!-- Placeholder for Markdown content for Project 1 -->
                 <div id="markdown-content7"></div>
@@ -172,6 +182,37 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             // Define your Markdown content for each project
+
+            const markdown9 = `
+# Restaurant API
+This project is a simple API for a restaurant management system. The API allows users to create, read, update, and delete restaurants and their menus. The project uses Flask, a Python web framework, to create the API endpoints and interact with the database. The API provides a RESTful interface for managing restaurant data and menu items.
+
+## Languages
+- Python
+
+## Libraries
+- Flask
+- SQLAlchemy
+- SQLite
+`;
+
+            const markdown8 = `
+# Evaluating Retrieval-Augmented Generation Techniques in the Tourism Domain of Istanbul
+
+This project evaluates the performance of retrieval-augmented generation techniques in the tourism domain of Istanbul. The project uses a dataset of tourism-related queries and responses to train and evaluate different models, including a baseline model, a retrieval model, and a retrieval-augmented generation model. The project aims to improve the quality of generated responses by incorporating retrieval-based techniques into the generation process.
+
+## Languages
+- Python
+
+## Libraries
+- Transformers
+- Hugging Face
+- PyTorch
+- NLTK
+`;
+
+
+
             const markdown7 = `
 # Image Distillation
 This Python package aims to reduce the size of the image based datasets while preserving the important features of the images. The project uses clustering and grid based sampling techniques to distill the dataset, reducing the storage and processing requirements while maintaining the accuracy of the models trained on the distilled dataset.
@@ -298,6 +339,8 @@ Spelling Bee is a desktop word game inspired by the New York Times. Players form
 
 
             // Convert Markdown to HTML and set it to the respective content divs
+            document.getElementById('markdown-content9').innerHTML = marked.parse(markdown9);
+            document.getElementById('markdown-content8').innerHTML = marked.parse(markdown8);
             document.getElementById('markdown-content7').innerHTML = marked.parse(markdown7);
             document.getElementById('markdown-content0').innerHTML = marked.parse(markdown0);
             document.getElementById('markdown-content1').innerHTML = marked.parse(markdown1);
