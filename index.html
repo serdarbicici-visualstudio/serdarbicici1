@@ -1,110 +1,963 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Q765PQ9SC"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-1Q765PQ9SC');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serdar Biçici's Portfolio</title>
+    <title>Serdar Biçici - Portfolio</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tahoma&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body, html {
             height: 100%;
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: black; /* Start with a blank page */
-            overflow: hidden; /* Hide scrollbars during the animation */
+            overflow: hidden;
         }
-        .bg-image {
-            /* The image used */
-            background-image: url('bliss.jpg');
-            
-            /* Full height */
-            height: 100%; 
-            
-            /* Center and scale the image nicely */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        
+        /* ==================== macOS Theme ==================== */
+        body.macos {
+            font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        
+        body.macos .bg-image {
+            height: 100%;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            opacity: 0; /* Start hidden */
-            animation: fadeIn 1s forwards 0.001s; /* Fade in after 0.001 sec */
+            background-image: url('10-7.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards 0.001s;
         }
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+        
+        /* macOS Menu Bar - Always visible */
+        body.macos .menubar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 24px;
+            background: linear-gradient(180deg, 
+                rgba(255,255,255,0.9) 0%, 
+                rgba(230,230,230,0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .content {
+        
+        body.macos .menubar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        body.macos .apple-logo {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        body.macos .menubar a {
+            color: #222;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+        
+        body.macos .menubar a:hover {
+            background: rgba(0,0,0,0.1);
+        }
+        
+        body.macos .content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.89); /* Less transparent */
-            color: white;
-            padding: 40px; /* Bigger box */
+            background: linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 100%);
+            border: 1px solid #888;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.5) inset;
+            color: #222;
             text-align: center;
-            width: 60%; /* Increased width */
-            height: 60%; /* Increased height */
+            width: auto;
+            max-width: 550px;
+            min-width: 450px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            opacity: 0;
+            animation: fadeInBox 1s forwards 0.5s;
+            overflow: hidden;
+        }
+        
+        body.macos .titlebar {
+            background: linear-gradient(180deg, #c8c8c8 0%, #b8b8b8 45%, #a8a8a8 50%, #b0b0b0 55%, #c0c0c0 100%);
+            padding: 8px 12px;
+            display: flex;
             align-items: center;
-            opacity: 0; /* Start hidden */
-            animation: fadeInBox 1s forwards 1s; /* Fade in after 1 second */
+            border-bottom: 1px solid #666;
         }
-        @keyframes fadeInBox {
-            to {
-                opacity: 1;
-            }
+        
+        body.macos .window-buttons {
+            display: flex;
+            gap: 8px;
+            position: absolute;
+            left: 12px;
         }
-        .content h1 {
-            font-size: 48px; /* Increased font size */
-            margin: 0;
+        
+        body.macos .window-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
         }
-        .buttons {
-            margin-top: 20px;
-        }
-        .buttons button {
-            background-color: transparent; /* Transparent buttons */
-            border: 2px solid white; /* White border */
-            color: white;
-            padding: 10px 20px;
+        
+        body.macos .window-btn.close { background: linear-gradient(180deg, #ff6b6b 0%, #ff4757 50%, #c0392b 100%); }
+        body.macos .window-btn.minimize { background: linear-gradient(180deg, #ffd93d 0%, #f9ca24 50%, #f39c12 100%); }
+        body.macos .window-btn.maximize { background: linear-gradient(180deg, #6bcb77 0%, #2ed573 50%, #27ae60 100%); }
+        
+        body.macos .titlebar-text {
+            flex: 1;
             text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            transition: all 0.3s ease; /* Smooth transition */
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
         }
+        
+        body.macos .window-content {
+            padding: 40px 50px;
+            background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+        }
+        
+        body.macos .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #7ed6ff 0%, #4fc3f7 20%, #29b6f6 50%, #0288d1 80%, #01579b 100%);
+            border: 3px solid white;
+            box-shadow: 0 4px 15px rgba(0,136,209,0.5), inset 0 -20px 30px rgba(0,0,0,0.1), inset 0 10px 20px rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        body.macos .avatar::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 15%;
+            right: 15%;
+            height: 35%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%);
+            border-radius: 50%;
+        }
+        
+        body.macos .avatar-text {
+            font-size: 36px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-weight: bold;
+        }
+        
+        body.macos h1 { font-size: 32px; font-weight: 400; color: #1a1a1a; margin: 0 0 8px 0; }
+        body.macos .subtitle { font-size: 14px; color: #555; margin-bottom: 4px; }
+        body.macos .university { font-size: 13px; color: #777; margin-bottom: 30px; }
+        
+        body.macos .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        body.macos .buttons button {
+            background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 15%, #0ea5e9 45%, #0284c7 55%, #0369a1 100%);
+            border: 1px solid #075985;
+            border-radius: 18px;
+            color: white;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(3,105,161,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+        
+        body.macos .buttons button::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 10%;
+            right: 10%;
+            height: 45%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 100%);
+            border-radius: 15px 15px 50% 50%;
+        }
+        
+        body.macos .buttons button:hover {
+            background: linear-gradient(180deg, #93e0fd 0%, #5cc8f9 15%, #2eb3f0 45%, #1a9cd8 55%, #0c7bb8 100%);
+        }
+        
+        body.macos .buttons button.graphite {
+            background: linear-gradient(180deg, #9ca3af 0%, #6b7280 15%, #4b5563 45%, #374151 55%, #1f2937 100%);
+            border-color: #111827;
+        }
+        
+        body.macos .footer {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.8);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* ==================== Windows XP Theme ==================== */
+        body.winxp {
+            font-family: 'Tahoma', 'Trebuchet MS', Arial, sans-serif;
+        }
+        
+        body.winxp .bg-image {
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-image: url('bliss.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards 0.001s;
+        }
+        
+        /* Windows XP Taskbar */
+        body.winxp .menubar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, 
+                #3168d5 0%, 
+                #4285f4 3%, 
+                #2d5fc1 5%,
+                #245dba 90%, 
+                #1941a3 95%,
+                #0d3199 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+            border-top: 1px solid #6699ff;
+        }
+        
+        body.winxp .menubar-left {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        /* Start Button */
+        body.winxp .start-btn {
+            background: linear-gradient(180deg, 
+                #3c9a3c 0%, 
+                #3d9a41 10%,
+                #2d8b2d 50%,
+                #1e7b1e 90%,
+                #0f6b0f 100%);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 3px 15px 3px 8px;
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'Tahoma', sans-serif;
+            font-style: italic;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        
+        body.winxp .start-btn:hover {
+            background: linear-gradient(180deg, #4caa4c 0%, #4daa51 10%, #3d9b3d 50%, #2e8b2e 90%, #1f7b1f 100%);
+        }
+        
+        body.winxp .start-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7c531 25%, #88c542 50%, #5eb3e4 75%, #ff6b35 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        body.winxp .taskbar-items {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-left: 10px;
+            gap: 2px;
+        }
+        
+        body.winxp .taskbar-items a {
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            padding: 4px 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 2px;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp .taskbar-items a:hover {
+            background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
+        }
+        
+        body.winxp .systray {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 10px;
+            background: linear-gradient(180deg, #1a4db5 0%, #1555c5 50%, #0f3d99 100%);
+            border-left: 1px solid #6699ff;
+            font-size: 11px;
+            color: white;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        }
+        
+        /* Windows XP Window */
+        body.winxp .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ece9d8;
+            border: 3px solid;
+            border-color: #0054e3 #0047bf #0047bf #0054e3;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+            color: #000;
+            text-align: center;
+            width: auto;
+            max-width: 550px;
+            min-width: 450px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeInBox 1s forwards 0.5s;
+            overflow: hidden;
+        }
+        
+        body.winxp .titlebar {
+            background: linear-gradient(180deg, 
+                #0a246a 0%, 
+                #0f3787 2%,
+                #1654b2 4%,
+                #2470d4 8%,
+                #2f7fe8 15%,
+                #3687ed 25%,
+                #3687ed 50%,
+                #2a7de5 75%,
+                #1e6fd8 85%,
+                #0f4ca8 95%,
+                #0a3280 100%);
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 6px 6px 0 0;
+        }
+        
+        body.winxp .titlebar-left {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        body.winxp .window-icon {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            border-radius: 2px;
+        }
+        
+        body.winxp .titlebar-text {
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp .window-buttons {
+            display: flex;
+            gap: 2px;
+        }
+        
+        body.winxp .window-btn {
+            width: 21px;
+            height: 21px;
+            border-radius: 3px;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Webdings', sans-serif;
+        }
+        
+        body.winxp .window-btn.minimize, body.winxp .window-btn.maximize {
+            background: linear-gradient(180deg, #3c8cff 0%, #2070e0 50%, #1860d0 100%);
+            border-color: #2060c0 #1050a0 #1050a0 #2060c0;
+            color: white;
+        }
+        
+        body.winxp .window-btn.close {
+            background: linear-gradient(180deg, #e08070 0%, #c05040 50%, #b04030 100%);
+            border-color: #c06050 #a03020 #a03020 #c06050;
+            color: white;
+        }
+        
+        body.winxp .window-content {
+            padding: 30px 40px;
+            background: #ece9d8;
+        }
+        
+        body.winxp .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4a90d9 0%, #2a70c9 50%, #1a60b9 100%);
+            border: 3px solid #ddd;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+        
+        body.winxp .avatar-text {
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp h1 { font-size: 28px; font-weight: bold; color: #003399; margin: 0 0 8px 0; }
+        body.winxp .subtitle { font-size: 13px; color: #666; margin-bottom: 4px; }
+        body.winxp .university { font-size: 12px; color: #888; margin-bottom: 20px; }
+        
+        body.winxp .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        /* Classic XP Button */
+        body.winxp .buttons button {
+            background: linear-gradient(180deg, #ffffff 0%, #ece9d8 50%, #d4d0c8 100%);
+            border: 2px solid;
+            border-color: #fff #848484 #848484 #fff;
+            border-radius: 3px;
+            color: #000;
+            padding: 6px 20px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: 'Tahoma', sans-serif;
+            box-shadow: 1px 1px 0 #404040;
+        }
+        
+        body.winxp .buttons button:hover {
+            background: linear-gradient(180deg, #fff8e8 0%, #ffefd8 50%, #e8dcc8 100%);
+        }
+        
+        body.winxp .buttons button:active {
+            border-color: #848484 #fff #fff #848484;
+            background: linear-gradient(180deg, #d4d0c8 0%, #ece9d8 100%);
+        }
+        
+        body.winxp .footer {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: rgba(0,0,0,0.6);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        }
+        
+        /* ==================== Theme Switcher ==================== */
+        .theme-switcher {
+            position: fixed;
+            top: 5px;
+            right: 10px;
+            z-index: 99999;
+            display: flex;
+            gap: 5px;
+        }
+        
+        body.winxp .theme-switcher {
+            bottom: 35px;
+            top: auto;
+        }
+        
+        .theme-switcher button {
+            padding: 4px 10px;
+            font-size: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .theme-switcher button.active {
+            font-weight: bold;
+        }
+        
+        body.macos .theme-switcher button {
+            background: rgba(255,255,255,0.8);
+            border: 1px solid #999;
+            color: #333;
+        }
+        
+        body.macos .theme-switcher button.active {
+            background: #007aff;
+            color: white;
+            border-color: #0066dd;
+        }
+        
+        body.winxp .theme-switcher button {
+            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+            border: 1px solid #848484;
+            color: #000;
+        }
+        
+        body.winxp .theme-switcher button.active {
+            background: linear-gradient(180deg, #316ac5 0%, #1e5cb8 100%);
+            color: white;
+        }
+        
+        /* Hide elements based on theme */
+        body.macos .winxp-only { display: none !important; }
+        body.winxp .macos-only { display: none !important; }
+        
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes fadeInBox { to { opacity: 1; } }
+    </style>
+</head>
+<body class="macos">
+    <div class="bg-image"></div>
+    
+    <!-- macOS Menu Bar -->
+    <div class="menubar macos-only">
+        <div class="menubar-left">
+            <span class="apple-logo"></span>
+            <a href="index.html"><strong>Home</strong></a>
+            <a href="about-me.html">About Me</a>
+            <a href="projects.html">Projects</a>
+            <a href="https://github.com/serdarbicici-visualstudio">GitHub</a>
+            <a href="https://www.linkedin.com/in/serdarbicici/">LinkedIn</a>
+        </div>
+    </div>
+    
+    <!-- Windows XP Taskbar -->
+    <div class="menubar winxp-only">
+        <div class="menubar-left">
+            <button class="start-btn">
+                <span class="start-icon"></span>
+                start
+            </button>
+            <div class="taskbar-items">
+                <a href="index.html">Home</a>
+                <a href="about-me.html">About Me</a>
+                <a href="projects.html">Projects</a>
+                <a href="https://github.com/serdarbicici-visualstudio">GitHub</a>
+            </div>
+        </div>
+        <div class="systray" id="clock">12:00 PM</div>
+    </div>
+    
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="btn-macos" class="active" onclick="setTheme('macos')">macOS</button>
+        <button id="btn-winxp" onclick="setTheme('winxp')">Windows XP</button>
+    </div>
+    
+    <div class="content">
+        <div class="titlebar">
+            <div class="titlebar-left winxp-only">
+                <div class="window-icon"></div>
+            </div>
+            <div class="window-buttons macos-only">
+                <div class="window-btn close"></div>
+                <div class="window-btn minimize"></div>
+                <div class="window-btn maximize"></div>
+            </div>
+            <span class="titlebar-text">Welcome</span>
+            <div class="window-buttons winxp-only">
+                <div class="window-btn minimize">0</div>
+                <div class="window-btn maximize">1</div>
+                <div class="window-btn close">r</div>
+            </div>
+        </div>
+        
+        <div class="window-content">
+            <div class="avatar">
+                <span class="avatar-text">SB</span>
+            </div>
+            <h1>Serdar Biçici</h1>
+            <p class="subtitle">AI & Data Engineering Student</p>
+            <p class="university">İstanbul Technical University</p>
+            
+            <div class="buttons">
+                <button onclick="window.location.href='about-me.html'">About Me</button>
+                <button onclick="window.location.href='projects.html'">Projects</button>
+                <button class="graphite macos-only" onclick="window.location.href='https://github.com/serdarbicici-visualstudio'">GitHub</button>
+                <button class="winxp-only" onclick="window.location.href='https://github.com/serdarbicici-visualstudio'">GitHub</button>
+                <button onclick="window.location.href='https://www.linkedin.com/in/serdarbicici/'">LinkedIn</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer macos-only">Made on a Mac</div>
+    <div class="footer winxp-only">Best viewed with Internet Explorer 6.0 | 1024x768</div>
+
+    <script>
+        function setTheme(theme) {
+            document.body.className = theme;
+            localStorage.setItem('portfolio-theme', theme);
+            document.getElementById('btn-macos').classList.toggle('active', theme === 'macos');
+            document.getElementById('btn-winxp').classList.toggle('active', theme === 'winxp');
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('portfolio-theme') || 'macos';
+        setTheme(savedTheme);
+        
+        // Update clock for XP taskbar
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            document.getElementById('clock').textContent = `${displayHours}:${minutes} ${ampm}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
+            background: linear-gradient(180deg, 
+                #c8c8c8 0%, 
+                #b8b8b8 45%, 
+                #a8a8a8 50%, 
+                #b0b0b0 55%, 
+                #c0c0c0 100%);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #666;
+            position: relative;
+        }
+        
+        /* Traffic light buttons */
+        .window-buttons {
+            display: flex;
+            gap: 8px;
+            position: absolute;
+            left: 12px;
+        }
+        
+        .window-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+        }
+        
+        .window-btn.close {
+            background: linear-gradient(180deg, #ff6b6b 0%, #ff4757 50%, #c0392b 100%);
+        }
+        
+        .window-btn.minimize {
+            background: linear-gradient(180deg, #ffd93d 0%, #f9ca24 50%, #f39c12 100%);
+        }
+        
+        .window-btn.maximize {
+            background: linear-gradient(180deg, #6bcb77 0%, #2ed573 50%, #27ae60 100%);
+        }
+        
+        .titlebar-text {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        }
+        
+        /* Content area with subtle pinstripes */
+        .window-content {
+            padding: 40px 50px;
+            background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+            position: relative;
+        }
+        
+        .window-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 1px,
+                rgba(0,0,0,0.02) 1px,
+                rgba(0,0,0,0.02) 2px
+            );
+            pointer-events: none;
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            /* Aqua gel orb */
+            background: linear-gradient(180deg, 
+                #7ed6ff 0%, 
+                #4fc3f7 20%, 
+                #29b6f6 50%, 
+                #0288d1 80%, 
+                #01579b 100%);
+            border: 3px solid white;
+            box-shadow: 
+                0 4px 15px rgba(0,136,209,0.5),
+                inset 0 -20px 30px rgba(0,0,0,0.1),
+                inset 0 10px 20px rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Aqua shine on avatar */
+        .avatar::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 15%;
+            right: 15%;
+            height: 35%;
+            background: linear-gradient(180deg, 
+                rgba(255,255,255,0.8) 0%, 
+                rgba(255,255,255,0.2) 100%);
+            border-radius: 50%;
+        }
+        
+        .avatar-text {
+            font-size: 36px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-weight: bold;
+        }
+        
+        .content h1 {
+            font-size: 32px;
+            font-weight: 400;
+            margin: 0 0 8px 0;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 4px;
+        }
+        
+        .university {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Aqua Gel Button */
+        .buttons button {
+            background: linear-gradient(180deg, 
+                #7dd3fc 0%, 
+                #38bdf8 15%, 
+                #0ea5e9 45%, 
+                #0284c7 55%, 
+                #0369a1 100%);
+            border: 1px solid #075985;
+            border-radius: 18px;
+            color: white;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 
+                0 3px 8px rgba(3,105,161,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.4),
+                inset 0 -1px 0 rgba(0,0,0,0.1);
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Lucida Grande', sans-serif;
+        }
+        
+        /* Aqua shine */
+        .buttons button::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 10%;
+            right: 10%;
+            height: 45%;
+            background: linear-gradient(180deg, 
+                rgba(255,255,255,0.5) 0%, 
+                rgba(255,255,255,0.1) 100%);
+            border-radius: 15px 15px 50% 50%;
+        }
+        
         .buttons button:hover {
-            background-color: white; /* White background on hover */
-            color: black; /* Black text on hover */
+            background: linear-gradient(180deg, 
+                #93e0fd 0%, 
+                #5cc8f9 15%, 
+                #2eb3f0 45%, 
+                #1a9cd8 55%, 
+                #0c7bb8 100%);
+            box-shadow: 
+                0 4px 12px rgba(3,105,161,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.5),
+                inset 0 -1px 0 rgba(0,0,0,0.1);
+        }
+        
+        .buttons button:active {
+            background: linear-gradient(180deg, 
+                #0369a1 0%, 
+                #0284c7 45%, 
+                #0ea5e9 55%, 
+                #38bdf8 85%, 
+                #7dd3fc 100%);
+            box-shadow: 
+                inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Graphite button variant */
+        .buttons button.graphite {
+            background: linear-gradient(180deg, 
+                #9ca3af 0%, 
+                #6b7280 15%, 
+                #4b5563 45%, 
+                #374151 55%, 
+                #1f2937 100%);
+            border-color: #111827;
+        }
+        
+        .buttons button.graphite:hover {
+            background: linear-gradient(180deg, 
+                #b0b7c0 0%, 
+                #7f8694 15%, 
+                #5f6978 45%, 
+                #4b5563 55%, 
+                #374151 100%);
+        }
+        
+        .footer {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: rgba(0,0,0,0.5);
+            z-index: 100;
         }
     </style>
 </head>
 <body>
     <div class="bg-image"></div>
+    
     <div class="content">
-        <h1>Serdar Biçici</h1>
-        <br>
-        <br>
-        <div class="buttons">
-            <button onclick="window.location.href='about-me.html'">About Me</button>
-            <button onclick="window.location.href='projects.html'">Projects</button>
-            <button onclick="window.location.href='https://github.com/serdarbicici-visualstudio'">GitHub</button>
-            <button onclick="window.location.href='https://www.linkedin.com/in/serdarbicici/'">LinkedIn</button>
+        <div class="titlebar">
+            <div class="window-buttons">
+                <div class="window-btn close"></div>
+                <div class="window-btn minimize"></div>
+                <div class="window-btn maximize"></div>
+            </div>
+            <span class="titlebar-text">Welcome</span>
         </div>
+        
+        <div class="window-content">
+            <div class="avatar">
+                <span class="avatar-text">SB</span>
+            </div>
+            <h1>Serdar Biçici</h1>
+            <p class="subtitle">AI & Data Engineering Student</p>
+            <p class="university">İstanbul Technical University</p>
+            
+            <div class="buttons">
+                <button onclick="window.location.href='about-me.html'">About Me</button>
+                <button onclick="window.location.href='projects.html'">Projects</button>
+                <button class="graphite" onclick="window.location.href='https://github.com/serdarbicici-visualstudio'">GitHub</button>
+                <button onclick="window.location.href='https://www.linkedin.com/in/serdarbicici/'">LinkedIn</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Made on a Mac
     </div>
 </body>
 </html>

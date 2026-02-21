@@ -1,170 +1,767 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Q765PQ9SC"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-1Q765PQ9SC');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>About Me - Serdar Biçici</title>
     <style>
-        body, html {
+        @import url('https://fonts.googleapis.com/css2?family=Tahoma&display=swap');
+        
+        * {
             margin: 0;
             padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            height: 100%;
+            box-sizing: border-box;
         }
-        .bg-image {
-            /* Set background image on the content container */
-            background-image: url('ascent.jpg'); /* Update with your image */
-            background-position: top;
-            background-repeat: no-repeat;
-            background-size: cover; /* Cover the entire content height */
-            background-attachment: fixed;
+        
+        body, html {
+            min-height: 100%;
         }
-        .menu {
+        
+        /* ==================== macOS Theme ==================== */
+        body.macos {
+            font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        
+        body.macos .bg-image {
+            min-height: 100vh;
+            background: linear-gradient(180deg, 
+                #1e3c72 0%, 
+                #2a5298 20%, 
+                #4a90c2 40%, 
+                #7eb8da 60%, 
+                #b8d4e8 80%, 
+                #d4e6f1 100%);
+            position: relative;
+        }
+        
+        body.macos .bg-image::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 1px,
+                rgba(255,255,255,0.02) 1px,
+                rgba(255,255,255,0.02) 2px
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* macOS Menu Bar - Always visible */
+        body.macos .menubar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            padding: 10px 20px;
+            height: 24px;
+            background: linear-gradient(180deg, 
+                rgba(255,255,255,0.9) 0%, 
+                rgba(230,230,230,0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: top 0.3s; /* Smooth transition for menu animation */
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .nav-links {
+        
+        body.macos .menubar-left {
             display: flex;
             align-items: center;
-            gap: 20px; /* Add gap between links */
+            gap: 0;
+            height: 100%;
         }
-        .nav-links a {
-            color: white;
+        
+        body.macos .apple-logo {
+            padding: 0 12px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        body.macos .menubar a {
+            color: #222;
             text-decoration: none;
-            font-size: 18px;
-            padding: 10px; /* Add padding for better alignment */
-            border-radius: 5px; /* Add rounded corners */
-            transition: background-color 0.3s; /* Smooth transition */
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0 12px;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* Lighten the background on hover */
+        
+        body.macos .menubar a:hover {
+            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+            color: white;
         }
-        .nav-links .go-back {
-            margin-right: 20px; /* Add margin to the right */
-        }
-        .content-container {
-            /* Ensure the container covers the full viewport height */
+        
+        body.macos .content-container {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-top: 60px;
+            padding-bottom: 40px;
+            position: relative;
+            z-index: 1;
         }
-        .content {
-            flex-grow: 1; /* Allow the content to grow and fill the available space */
-            background-color: rgba(0, 0, 0, 0.89); /* Less transparent */
-            color: white;
-            padding: 40px;
-            text-align: left;
-            width: 60%; /* Increased width */
-            margin: 20vh auto 20vh; /* Center horizontally and add top and bottom margin */
-            overflow-y: auto; /* Add vertical scrollbar to content */
-        }
-        /* Customize scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #296ACC; /* Red scrollbar background */
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #999de2; /* Scrollbar color */
+        
+        body.macos .content {
+            background: linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 100%);
+            border: 1px solid #888;
             border-radius: 10px;
-            border: 3px solid #848fd9;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.5) inset;
+            color: #222;
+            width: 70%;
+            max-width: 800px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
         }
-        /* Hide menu when scrolled down */
-        .menu.hidden {
-            top: -60px; /* Move the menu out of the viewport */
+        
+        body.macos .window-titlebar {
+            background: linear-gradient(180deg, #c8c8c8 0%, #b8b8b8 45%, #a8a8a8 50%, #b0b0b0 55%, #c0c0c0 100%);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #666;
+            position: relative;
         }
-        /* Other styles... */
+        
+        body.macos .window-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        body.macos .window-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+        }
+        
+        body.macos .window-btn.close { background: linear-gradient(180deg, #ff6b6b 0%, #ff4757 50%, #c0392b 100%); }
+        body.macos .window-btn.minimize { background: linear-gradient(180deg, #ffd93d 0%, #f9ca24 50%, #f39c12 100%); }
+        body.macos .window-btn.maximize { background: linear-gradient(180deg, #6bcb77 0%, #2ed573 50%, #27ae60 100%); }
+        
+        body.macos .window-title {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        }
+        
+        body.macos .window-content {
+            padding: 30px 40px;
+            background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+            position: relative;
+        }
+        
+        body.macos .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(180deg, #fff 0%, #f5f5f5 100%);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 0 white, 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        body.macos .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #7ed6ff 0%, #4fc3f7 20%, #29b6f6 50%, #0288d1 80%, #01579b 100%);
+            border: 3px solid white;
+            box-shadow: 0 4px 15px rgba(0,136,209,0.4), inset 0 -15px 25px rgba(0,0,0,0.1), inset 0 8px 15px rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        body.macos .profile-avatar::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 15%;
+            right: 15%;
+            height: 35%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.1) 100%);
+            border-radius: 50%;
+        }
+        
+        body.macos .profile-info h1 { font-size: 24px; font-weight: 400; color: #1a1a1a; margin-bottom: 5px; }
+        body.macos .profile-info p { margin: 3px 0; font-size: 12px; color: #555; }
+        
+        body.macos h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 25px 0 12px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        body.macos p { font-size: 13px; line-height: 1.7; color: #444; margin-bottom: 12px; }
+        
+        body.macos ul { list-style: none; padding: 0; }
+        
+        body.macos li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: linear-gradient(180deg, #fff 0%, #f8f8f8 100%);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #333;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0 1px 0 white;
+        }
+        
+        body.macos li:hover {
+            background: linear-gradient(180deg, #f0f7ff 0%, #e6f0fa 100%);
+            border-color: #b8d4e8;
+        }
+        
+        body.macos li strong { color: #1a1a1a; }
+        body.macos li em { color: #0066cc; font-style: normal; }
+        
+        body.macos .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        body.macos .skill-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 15%, #0ea5e9 45%, #0284c7 55%, #0369a1 100%);
+            color: white;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            border: 1px solid #075985;
+            box-shadow: 0 2px 4px rgba(3,105,161,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.macos .skill-badge::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 15%;
+            right: 15%;
+            height: 40%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 10px;
+        }
+        
+        body.macos .skill-badge.graphite {
+            background: linear-gradient(180deg, #9ca3af 0%, #6b7280 15%, #4b5563 45%, #374151 55%, #1f2937 100%);
+            border-color: #111827;
+        }
+        
+        body.macos .skill-badge.green {
+            background: linear-gradient(180deg, #86efac 0%, #4ade80 15%, #22c55e 45%, #16a34a 55%, #15803d 100%);
+            border-color: #14532d;
+        }
+        
+        body.macos .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(0,0,0,0.5);
+            font-size: 11px;
+        }
+        
+        /* ==================== Windows XP Theme ==================== */
+        body.winxp {
+            font-family: 'Tahoma', 'Trebuchet MS', Arial, sans-serif;
+        }
+        
+        body.winxp .bg-image {
+            min-height: 100vh;
+            background-image: url('bliss.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        /* Windows XP Taskbar */
+        body.winxp .menubar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #3168d5 0%, #4285f4 3%, #2d5fc1 5%, #245dba 90%, #1941a3 95%, #0d3199 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+            border-top: 1px solid #6699ff;
+        }
+        
+        body.winxp .menubar-left {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        body.winxp .start-btn {
+            background: linear-gradient(180deg, #3c9a3c 0%, #3d9a41 10%, #2d8b2d 50%, #1e7b1e 90%, #0f6b0f 100%);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 3px 15px 3px 8px;
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'Tahoma', sans-serif;
+            font-style: italic;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        
+        body.winxp .start-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7c531 25%, #88c542 50%, #5eb3e4 75%, #ff6b35 100%);
+            border-radius: 50%;
+        }
+        
+        body.winxp .taskbar-items {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-left: 10px;
+            gap: 2px;
+        }
+        
+        body.winxp .taskbar-items a {
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            padding: 4px 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 2px;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp .taskbar-items a:hover {
+            background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
+        }
+        
+        body.winxp .systray {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 10px;
+            background: linear-gradient(180deg, #1a4db5 0%, #1555c5 50%, #0f3d99 100%);
+            border-left: 1px solid #6699ff;
+            font-size: 11px;
+            color: white;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp .content-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            padding-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        body.winxp .content {
+            background: #ece9d8;
+            border: 3px solid;
+            border-color: #0054e3 #0047bf #0047bf #0054e3;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+            color: #000;
+            width: 70%;
+            max-width: 800px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.winxp .window-titlebar {
+            background: linear-gradient(180deg, #0a246a 0%, #0f3787 2%, #1654b2 4%, #2470d4 8%, #2f7fe8 15%, #3687ed 25%, #3687ed 50%, #2a7de5 75%, #1e6fd8 85%, #0f4ca8 95%, #0a3280 100%);
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 6px 6px 0 0;
+        }
+        
+        body.winxp .titlebar-left {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        body.winxp .window-icon {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            border-radius: 2px;
+        }
+        
+        body.winxp .window-title {
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp .window-buttons {
+            display: flex;
+            gap: 2px;
+        }
+        
+        body.winxp .window-btn {
+            width: 21px;
+            height: 21px;
+            border-radius: 3px;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Webdings', sans-serif;
+        }
+        
+        body.winxp .window-btn.minimize, body.winxp .window-btn.maximize {
+            background: linear-gradient(180deg, #3c8cff 0%, #2070e0 50%, #1860d0 100%);
+            border-color: #2060c0 #1050a0 #1050a0 #2060c0;
+            color: white;
+        }
+        
+        body.winxp .window-btn.close {
+            background: linear-gradient(180deg, #e08070 0%, #c05040 50%, #b04030 100%);
+            border-color: #c06050 #a03020 #a03020 #c06050;
+            color: white;
+        }
+        
+        body.winxp .window-content {
+            padding: 20px 30px;
+            background: #ece9d8;
+        }
+        
+        body.winxp .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+            border: 2px solid;
+            border-color: #fff #848484 #848484 #fff;
+        }
+        
+        body.winxp .profile-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #4a90d9 0%, #2a70c9 50%, #1a60b9 100%);
+            border: 2px solid #ddd;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            flex-shrink: 0;
+        }
+        
+        body.winxp .profile-info h1 { font-size: 20px; font-weight: bold; color: #003399; margin-bottom: 5px; }
+        body.winxp .profile-info p { margin: 2px 0; font-size: 11px; color: #333; }
+        
+        body.winxp h2 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #003399;
+            margin: 20px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #999;
+        }
+        
+        body.winxp p { font-size: 12px; line-height: 1.6; color: #333; margin-bottom: 10px; }
+        
+        body.winxp ul { list-style: none; padding: 0; }
+        
+        body.winxp li {
+            padding: 6px 10px;
+            margin: 3px 0;
+            background: linear-gradient(180deg, #fff 0%, #f5f5f0 100%);
+            border: 1px solid #999;
+            font-size: 11px;
+            color: #000;
+        }
+        
+        body.winxp li:hover { background: linear-gradient(180deg, #e8f4fd 0%, #d4e8f8 100%); }
+        
+        body.winxp li strong { color: #000; }
+        body.winxp li em { color: #003399; font-style: normal; }
+        
+        body.winxp .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        body.winxp .skill-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+            color: #000;
+            font-size: 10px;
+            border: 1px solid #848484;
+        }
+        
+        body.winxp .skill-badge.graphite {
+            background: linear-gradient(180deg, #e0e0e0 0%, #c0c0c0 100%);
+        }
+        
+        body.winxp .skill-badge.green {
+            background: linear-gradient(180deg, #90ee90 0%, #32cd32 100%);
+            color: #000;
+        }
+        
+        body.winxp .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(0,0,0,0.6);
+            font-size: 10px;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        }
+        
+        /* ==================== Theme Switcher ==================== */
+        .theme-switcher {
+            position: fixed;
+            top: 5px;
+            right: 10px;
+            z-index: 99999;
+            display: flex;
+            gap: 5px;
+        }
+        
+        body.winxp .theme-switcher {
+            bottom: 35px;
+            top: auto;
+        }
+        
+        .theme-switcher button {
+            padding: 4px 10px;
+            font-size: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .theme-switcher button.active { font-weight: bold; }
+        
+        body.macos .theme-switcher button {
+            background: rgba(255,255,255,0.8);
+            border: 1px solid #999;
+            color: #333;
+        }
+        
+        body.macos .theme-switcher button.active {
+            background: #007aff;
+            color: white;
+            border-color: #0066dd;
+        }
+        
+        body.winxp .theme-switcher button {
+            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+            border: 1px solid #848484;
+            color: #000;
+        }
+        
+        body.winxp .theme-switcher button.active {
+            background: linear-gradient(180deg, #316ac5 0%, #1e5cb8 100%);
+            color: white;
+        }
+        
+        /* Hide elements based on theme */
+        body.macos .winxp-only { display: none !important; }
+        body.winxp .macos-only { display: none !important; }
     </style>
-    <!-- Include Marked.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
+<body class="macos">
     <div class="bg-image">
-        <div class="menu" id="menu">
-            <div class="nav-links">
-                
+        <!-- macOS Menu Bar -->
+        <div class="menubar macos-only">
+            <div class="menubar-left">
+                <span class="apple-logo"></span>
                 <a href="index.html">Home</a>
+                <a href="about-me.html"><strong>About Me</strong></a>
                 <a href="projects.html">Projects</a>
+                <a href="https://github.com/serdarbicici-visualstudio">GitHub</a>
+                <a href="https://www.linkedin.com/in/serdarbicici/">LinkedIn</a>
             </div>
         </div>
+        
+        <!-- Windows XP Taskbar -->
+        <div class="menubar winxp-only">
+            <div class="menubar-left">
+                <button class="start-btn">
+                    <span class="start-icon"></span>
+                    start
+                </button>
+                <div class="taskbar-items">
+                    <a href="index.html">Home</a>
+                    <a href="about-me.html">About Me</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="https://github.com/serdarbicici-visualstudio">GitHub</a>
+                </div>
+            </div>
+            <div class="systray" id="clock">12:00 PM</div>
+        </div>
+        
+        <!-- Theme Switcher -->
+        <div class="theme-switcher">
+            <button id="btn-macos" class="active" onclick="setTheme('macos')">macOS</button>
+            <button id="btn-winxp" onclick="setTheme('winxp')">Windows XP</button>
+        </div>
+        
         <div class="content-container">
-            <div class="content" id="content">
-                <!-- Placeholder for Markdown content -->
-                <div id="markdown-content"></div>
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">About Me</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                
+                <div class="window-content">
+                    <div class="profile-header">
+                        <div class="profile-avatar">SB</div>
+                        <div class="profile-info">
+                            <h1>Serdar Biçici</h1>
+                            <p><strong>AI & Data Engineering Student</strong></p>
+                            <p>İstanbul Technical University</p>
+                            <p>İstanbul, Türkiye</p>
+                        </div>
+                    </div>
+                    
+                    <p>Hello there! I'm <strong>Serdar Biçici</strong>, a senior student at <em>İstanbul Technical University</em>, studying <em>Artificial Intelligence and Data Engineering</em>. I'm the ex-president of the <strong>ITU Artificial Intelligence Club</strong> and the current chairman of the <strong>Supervisory Board</strong>. I'm an engineering enthusiast and a computer science lover. I also enjoy sci-fi, sports, and LEGOs.</p>
+                    
+                    <h2>Education</h2>
+                    <ul>
+                        <li><strong>İstanbul Technical University</strong> — <em>Artificial Intelligence and Data Engineering</em> (2021-2026)</li>
+                        <li><strong>Private ENKA Anatolian and Technical High School</strong> — <em>Industrial Automation Technologies</em> (2017-2021)</li>
+                    </ul>
+                    
+                    <h2>Experience</h2>
+                    <ul>
+                        <li><strong>Borsa İstanbul</strong> — <em>Information Management Application Development Directorate - Infrastructure Applications Development part-time intern</em> (March 2025 - Present)</li>
+                        <li><strong>ESO Endüstriyel Elektronik AŞ</strong> — <em>Anatolian Technical High School Intern</em> (June-July 2019)</li>
+                    </ul>
+                    
+                    <h2>Skills</h2>
+                    <div class="skills-grid">
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">C++</span>
+                        <span class="skill-badge green">Machine Learning</span>
+                        <span class="skill-badge green">Deep Learning</span>
+                        <span class="skill-badge">Data Science</span>
+                        <span class="skill-badge">Data Engineering</span>
+                        <span class="skill-badge">Artificial Intelligence</span>
+                        <span class="skill-badge graphite">Database Management</span>
+                        <span class="skill-badge graphite">SQL</span>
+                        <span class="skill-badge graphite">Git</span>
+                        <span class="skill-badge graphite">Docker</span>
+                        <span class="skill-badge">MS Office</span>
+                    </div>
+                    
+                    <h2>Leadership Activities</h2>
+                    <ul>
+                        <li><strong>President</strong> of ITU Artificial Intelligence Club (2023-2024)</li>
+                        <li><strong>Chairman of the Supervisory Board</strong> of ITU Artificial Intelligence Club (2024-2025)</li>
+                        <li><strong>Founding President</strong> of ENKA LEGO Club and Team Captain of ENKA TECH LEGO Team</li>
+                    </ul>
+                </div>
             </div>
         </div>
+        
+        <div class="footer macos-only">Made on a Mac</div>
+        <div class="footer winxp-only">Best viewed with Internet Explorer 6.0 | 1024x768</div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // Define your Markdown content
-            const markdown = `
-# About Me
-
-Hello there, I'm **Serdar Biçici**. I'm a third-year student at *İstanbul Technical University*, studying *Artificial Intelligence and Data Engineering*. I'm
-the ex-president of the **ITU Artificial Intelligence Club** and the current chairman of the **Supervisory Board**. I'm an engineering enthusiast and a computer science lover. I also enjoy *sci-fi*, *sports*, and *LEGOs*.
-
-## Education
-- **İstanbul Technical University**: *Artificial Intelligence and Data Engineering* (2021-2026)
-- **Private ENKA Anatolian and Technical High School**: *Industrial Automation Technologies* (2017-2021)
-
-## Skills
-- **Python**
-- **C++**
-- **MS Office**
-- **Artificial Intelligence**
-- **Data Science**
-- **Data Engineering**
-- **Machine Learning**
-- **Deep Learning**
-- **Database Management**
-- **Git**
-- **Docker**
-
-
-## Experience
-- **Borsa İstanbul**: *Information Management Application Development Directorate - Infrastructure Applications Development part-time intern* (March 2025 - Present)
-- **ESO Endüstriyel Elektronik AŞ**: *Anatolian Technical High School Intern* (June-July 2019)
-
-## Leadership Activities
-- President of **ITU Artificial Intelligence Club** (2023-2024)
-- Chairman of the **Supervisory Board of ITU Artificial Intelligence Club** (2024-2025)
-- Founding president of **ENKA LEGO Club** and team captain of **ENKA TECH LEGO Team**
-`;
-
-            // Convert Markdown to HTML and set it to the content div
-            document.getElementById('markdown-content').innerHTML = marked.parse(markdown);
-        });
-
-        // Hide menu when scrolled down
-        window.addEventListener('scroll', () => {
-            const menu = document.getElementById('menu');
-            if (window.scrollY > 0) {
-                menu.classList.add('hidden');
-            } else {
-                menu.classList.remove('hidden');
-            }
-        });
+        function setTheme(theme) {
+            document.body.className = theme;
+            localStorage.setItem('portfolio-theme', theme);
+            document.getElementById('btn-macos').classList.toggle('active', theme === 'macos');
+            document.getElementById('btn-winxp').classList.toggle('active', theme === 'winxp');
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('portfolio-theme') || 'macos';
+        setTheme(savedTheme);
+        
+        // Update clock for XP taskbar
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            document.getElementById('clock').textContent = `${displayHours}:${minutes} ${ampm}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
     </script>
 </body>
 </html>

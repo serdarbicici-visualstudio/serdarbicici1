@@ -1,366 +1,960 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Q765PQ9SC"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-1Q765PQ9SC');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>Projects - Serdar Biçici</title>
     <style>
-        body, html {
+        @import url('https://fonts.googleapis.com/css2?family=Tahoma&display=swap');
+        
+        * {
             margin: 0;
             padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            height: 100%;
+            box-sizing: border-box;
         }
-        .bg-image {
-            background-image: url('follow.jpg'); /* Update with your image */
-            background-position: top;
-            background-repeat: no-repeat;
-            background-size: cover; /* Cover the entire content height */
-            background-attachment: fixed;
+        
+        body, html {
+            min-height: 100%;
         }
-        .menu {
+        
+        /* ==================== macOS Theme ==================== */
+        body.macos {
+            font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        
+        body.macos .bg-image {
+            min-height: 100vh;
+            background: linear-gradient(180deg, 
+                #2c5364 0%, 
+                #203a43 30%, 
+                #0f2027 100%);
+            position: relative;
+        }
+        
+        body.macos .bg-image::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, white, transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 90px 40px, white, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 160px 120px, white, transparent),
+                radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 250px 90px, white, transparent),
+                radial-gradient(1px 1px at 300px 140px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 350px 60px, white, transparent);
+            background-size: 400px 200px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        
+        /* macOS Menu Bar - Always visible */
+        body.macos .menubar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
+            height: 24px;
+            background: linear-gradient(180deg, 
+                rgba(255,255,255,0.9) 0%, 
+                rgba(230,230,230,0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        body.macos .menubar-left {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            height: 100%;
+        }
+        
+        body.macos .apple-logo {
+            padding: 0 12px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        body.macos .menubar a {
+            color: #222;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0 12px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        body.macos .menubar a:hover {
+            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+            color: white;
+        }
+        
+        body.macos .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px 40px;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        body.macos .page-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+            padding-top: 20px;
+        }
+        
+        body.macos .page-title {
+            font-size: 28px;
+            font-weight: 400;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        body.macos .page-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 5px;
+        }
+        
+        body.macos .content {
+            background: linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 100%);
+            border: 1px solid #888;
+            border-radius: 10px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.5) inset;
+            color: #222;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        
+        body.macos .content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.5) inset;
+        }
+        
+        body.macos .window-titlebar {
+            background: linear-gradient(180deg, #c8c8c8 0%, #b8b8b8 45%, #a8a8a8 50%, #b0b0b0 55%, #c0c0c0 100%);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #666;
+        }
+        
+        body.macos .window-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        body.macos .window-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+        }
+        
+        body.macos .window-btn.close { background: linear-gradient(180deg, #ff6b6b 0%, #ff4757 50%, #c0392b 100%); }
+        body.macos .window-btn.minimize { background: linear-gradient(180deg, #ffd93d 0%, #f9ca24 50%, #f39c12 100%); }
+        body.macos .window-btn.maximize { background: linear-gradient(180deg, #6bcb77 0%, #2ed573 50%, #27ae60 100%); }
+        
+        body.macos .window-title {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        }
+        
+        body.macos .window-content {
+            padding: 20px 25px 25px;
+            background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+            position: relative;
+        }
+        
+        body.macos h1 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 8px; }
+        
+        body.macos h3 {
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: linear-gradient(90deg, #f0f0f0 0%, transparent 100%);
+            border-left: 3px solid #0ea5e9;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        body.macos p { font-size: 12px; line-height: 1.6; color: #444; margin-bottom: 12px; }
+        body.macos h2 { font-size: 12px; color: #333; margin: 12px 0 8px; font-weight: 600; }
+        
+        body.macos ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+        
+        body.macos li {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 15%, #0ea5e9 45%, #0284c7 55%, #0369a1 100%);
+            color: white;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 500;
+            border: 1px solid #075985;
+            box-shadow: 0 2px 4px rgba(3,105,161,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.macos li::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 15%;
+            right: 15%;
+            height: 40%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 8px;
+        }
+        
+        body.macos .project-link-btn {
+            display: inline-block;
+            background: linear-gradient(180deg, #86efac 0%, #4ade80 15%, #22c55e 45%, #16a34a 55%, #15803d 100%);
+            padding: 8px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 11px;
+            border: 1px solid #14532d;
+            box-shadow: 0 3px 8px rgba(22,163,74,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.macos .project-link-btn::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 15%;
+            right: 15%;
+            height: 45%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 12px;
+        }
+        
+        body.macos .project-link-btn:hover {
+            background: linear-gradient(180deg, #a7f3d0 0%, #6ee7b7 15%, #34d399 45%, #10b981 55%, #059669 100%);
+            box-shadow: 0 4px 12px rgba(22,163,74,0.5), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+        
+        body.macos .footer {
+            width: 100%;
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 11px;
+        }
+        
+        /* ==================== Windows XP Theme ==================== */
+        body.winxp {
+            font-family: 'Tahoma', 'Trebuchet MS', Arial, sans-serif;
+        }
+        
+        body.winxp .bg-image {
+            min-height: 100vh;
+            background-image: url('bliss.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        /* Windows XP Taskbar */
+        body.winxp .menubar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #3168d5 0%, #4285f4 3%, #2d5fc1 5%, #245dba 90%, #1941a3 95%, #0d3199 100%);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: top 0.3s;
+            z-index: 9999;
+            border-top: 1px solid #6699ff;
         }
-        .nav-links {
+        
+        body.winxp .menubar-left {
             display: flex;
             align-items: center;
-            gap: 20px;
+            height: 100%;
         }
-        .nav-links a {
+        
+        body.winxp .start-btn {
+            background: linear-gradient(180deg, #3c9a3c 0%, #3d9a41 10%, #2d8b2d 50%, #1e7b1e 90%, #0f6b0f 100%);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 3px 15px 3px 8px;
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'Tahoma', sans-serif;
+            font-style: italic;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        
+        body.winxp .start-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7c531 25%, #88c542 50%, #5eb3e4 75%, #ff6b35 100%);
+            border-radius: 50%;
+        }
+        
+        body.winxp .taskbar-items {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-left: 10px;
+            gap: 2px;
+        }
+        
+        body.winxp .taskbar-items a {
             color: white;
             text-decoration: none;
-            font-size: 18px;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            font-size: 11px;
+            padding: 4px 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 2px;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
         }
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        
+        body.winxp .taskbar-items a:hover {
+            background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
         }
-        .nav-links .go-back {
-            margin-right: 20px;
+        
+        body.winxp .systray {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 10px;
+            background: linear-gradient(180deg, #1a4db5 0%, #1555c5 50%, #0f3d99 100%);
+            border-left: 1px solid #6699ff;
+            font-size: 11px;
+            color: white;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
         }
-        .content-container {
+        
+        body.winxp .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 60px;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        body.winxp .page-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+            padding-top: 10px;
+        }
+        
+        body.winxp .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003399;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        
+        body.winxp .page-subtitle {
+            font-size: 12px;
+            color: #333;
+            margin-top: 5px;
+        }
+        
+        body.winxp .content {
+            background: #ece9d8;
+            border: 3px solid;
+            border-color: #0054e3 #0047bf #0047bf #0054e3;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+            color: #000;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        
+        body.winxp .content:hover {
+            box-shadow: 3px 3px 15px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp .window-titlebar {
+            background: linear-gradient(180deg, #0a246a 0%, #0f3787 2%, #1654b2 4%, #2470d4 8%, #2f7fe8 15%, #3687ed 25%, #3687ed 50%, #2a7de5 75%, #1e6fd8 85%, #0f4ca8 95%, #0a3280 100%);
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 6px 6px 0 0;
+        }
+        
+        body.winxp .titlebar-left {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        body.winxp .window-icon {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            border-radius: 2px;
+        }
+        
+        body.winxp .window-title {
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+        
+        body.winxp .window-buttons {
+            display: flex;
+            gap: 2px;
+        }
+        
+        body.winxp .window-btn {
+            width: 21px;
+            height: 21px;
+            border-radius: 3px;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Webdings', sans-serif;
+        }
+        
+        body.winxp .window-btn.minimize, body.winxp .window-btn.maximize {
+            background: linear-gradient(180deg, #3c8cff 0%, #2070e0 50%, #1860d0 100%);
+            border-color: #2060c0 #1050a0 #1050a0 #2060c0;
+            color: white;
+        }
+        
+        body.winxp .window-btn.close {
+            background: linear-gradient(180deg, #e08070 0%, #c05040 50%, #b04030 100%);
+            border-color: #c06050 #a03020 #a03020 #c06050;
+            color: white;
+        }
+        
+        body.winxp .window-content {
+            padding: 15px 20px 20px;
+            background: #ece9d8;
+        }
+        
+        body.winxp h1 { font-size: 16px; font-weight: bold; color: #003399; margin-bottom: 5px; }
+        
+        body.winxp h3 {
+            font-size: 10px;
+            color: #666;
+            font-weight: normal;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        body.winxp p { font-size: 11px; line-height: 1.5; color: #333; margin-bottom: 10px; }
+        body.winxp h2 { font-size: 11px; color: #000; margin: 8px 0 5px; font-weight: bold; }
+        
+        body.winxp ul {
+            list-style: none;
+            padding: 0;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            padding: 0 20px;
-            margin-bottom: 20vh;
+            gap: 4px;
+            margin-bottom: 12px;
         }
-        .content {
-            background-color: rgba(0, 0, 0, 0.89);
-            color: white;
-            padding: 40px;
-            text-align: left;
-            margin: 5vh auto; /* Smaller margin between content boxes */
-            border-radius: 0;
-            width: 60%;
-            position: relative; /* Ensure relative positioning for button */
+        
+        body.winxp li {
+            display: inline-block;
+            padding: 3px 8px;
+            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+            color: #000;
+            font-size: 9px;
+            border: 1px solid #848484;
         }
-        .content:first-child {
-            margin-top: 20vh;
-        }
-        .content:last-child {
-            margin-bottom: 20vh;
-        }
-        /* Customize scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0046f2;
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #eb7200;
-            border-radius: 10px;
-            border: 3px solid #0046f4;
-        }
-        .menu.hidden {
-            top: -60px;
-        }
-        .project-link-btn {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 5px;
+        
+        body.winxp .project-link-btn {
+            display: inline-block;
+            background: linear-gradient(180deg, #fff 0%, #ece9d8 50%, #d4d0c8 100%);
+            padding: 5px 15px;
             text-decoration: none;
+            color: #000;
+            font-size: 11px;
+            border: 2px solid;
+            border-color: #fff #848484 #848484 #fff;
+            box-shadow: 1px 1px 0 #404040;
+        }
+        
+        body.winxp .project-link-btn:hover {
+            background: linear-gradient(180deg, #fff8e8 0%, #ffefd8 50%, #e8dcc8 100%);
+        }
+        
+        body.winxp .project-link-btn:active {
+            border-color: #848484 #fff #fff #848484;
+        }
+        
+        body.winxp .footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            color: rgba(0,0,0,0.6);
+            font-size: 10px;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        }
+        
+        /* ==================== Theme Switcher ==================== */
+        .theme-switcher {
+            position: fixed;
+            top: 5px;
+            right: 10px;
+            z-index: 99999;
+            display: flex;
+            gap: 5px;
+        }
+        
+        body.winxp .theme-switcher {
+            bottom: 35px;
+            top: auto;
+        }
+        
+        .theme-switcher button {
+            padding: 4px 10px;
+            font-size: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .theme-switcher button.active { font-weight: bold; }
+        
+        body.macos .theme-switcher button {
+            background: rgba(255,255,255,0.8);
+            border: 1px solid #999;
+            color: #333;
+        }
+        
+        body.macos .theme-switcher button.active {
+            background: #007aff;
             color: white;
-            transition: background-color 0.3s;
+            border-color: #0066dd;
         }
-        .project-link-btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+        
+        body.winxp .theme-switcher button {
+            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+            border: 1px solid #848484;
+            color: #000;
         }
+        
+        body.winxp .theme-switcher button.active {
+            background: linear-gradient(180deg, #316ac5 0%, #1e5cb8 100%);
+            color: white;
+        }
+        
+        /* Hide elements based on theme */
+        body.macos .winxp-only { display: none !important; }
+        body.winxp .macos-only { display: none !important; }
     </style>
-    <!-- Include Marked.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
+<body class="macos">
     <div class="bg-image">
-        <div class="menu" id="menu">
-            <div class="nav-links">
-                
+        <!-- macOS Menu Bar -->
+        <div class="menubar macos-only">
+            <div class="menubar-left">
+                <span class="apple-logo"></span>
                 <a href="index.html">Home</a>
                 <a href="about-me.html">About Me</a>
+                <a href="projects.html"><strong>Projects</strong></a>
+                <a href="https://github.com/serdarbicici-visualstudio">GitHub</a>
+                <a href="https://www.linkedin.com/in/serdarbicici/">LinkedIn</a>
             </div>
         </div>
+        
+        <!-- Windows XP Taskbar -->
+        <div class="menubar winxp-only">
+            <div class="menubar-left">
+                <button class="start-btn">
+                    <span class="start-icon"></span>
+                    start
+                </button>
+                <div class="taskbar-items">
+                    <a href="index.html">Home</a>
+                    <a href="about-me.html">About Me</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="https://github.com/serdarbicici-visualstudio">GitHub</a>
+                </div>
+            </div>
+            <div class="systray" id="clock">12:00 PM</div>
+        </div>
+        
+        <!-- Theme Switcher -->
+        <div class="theme-switcher">
+            <button id="btn-macos" class="active" onclick="setTheme('macos')">macOS</button>
+            <button id="btn-winxp" onclick="setTheme('winxp')">Windows XP</button>
+        </div>
+        
         <div class="content-container">
-            <div class="content" id="content9">
-                <!-- Placeholder for Markdown content for Project 1 -->
-                <div id="markdown-content9"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/restaurant_api" class="project-link-btn" >View in GitHub</a>
+            <div class="page-header">
+                <h1 class="page-title">My Projects</h1>
+                <p class="page-subtitle">A collection of academic and personal work</p>
             </div>
-            <div class="content" id="content8">
-                <!-- Placeholder for Markdown content for Project 1 -->
-                <div id="markdown-content8"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/YZV303E_project" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Restaurant API</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>Restaurant API</h1>
+                    <h3>BLG317E - Database Systems Term Project</h3>
+                    <p>A comprehensive REST API for restaurant management systems built with Flask. Features include CRUD operations for restaurants, menus, and orders with SQLite database integration.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>Flask</li><li>SQLAlchemy</li><li>SQLite</li><li>REST API</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/restaurant_api" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content7">
-                <!-- Placeholder for Markdown content for Project 1 -->
-                <div id="markdown-content7"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/image-distillation" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">RAG for Istanbul Tourism</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>RAG for Istanbul Tourism</h1>
+                    <h3>YZV303E - Deep Learning Term Project</h3>
+                    <p>Evaluating Retrieval-Augmented Generation techniques for the tourism domain of Istanbul. Comparing baseline, retrieval, and RAG models for improved response quality.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>Transformers</li><li>HuggingFace</li><li>PyTorch</li><li>NLTK</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/YZV303E_project" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content0">
-                <!-- Placeholder for Markdown content for Project 1 -->
-                <div id="markdown-content0"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/tictactoe_ai" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Image Distillation</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>Image Distillation</h1>
+                    <h3>Python Package</h3>
+                    <p>A Python package for reducing image dataset sizes while preserving important features. Uses clustering and grid-based sampling techniques for efficient dataset distillation.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>NumPy</li><li>Matplotlib</li><li>Scikit-learn</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/image-distillation" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content1">
-                <!-- Placeholder for Markdown content for Project 1 -->
-                <div id="markdown-content1"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/stock_tracking_program" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Tic-Tac-Toe AI</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>Tic-Tac-Toe AI</h1>
+                    <h3>Reinforcement Learning Project</h3>
+                    <p>An intelligent Tic-Tac-Toe bot using Q-Learning. The AI learns from gameplay experience and improves over time using a Q-table for action-value estimation.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>Q-Learning</li><li>Reinforcement Learning</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/tictactoe_ai" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content2">
-                <!-- Placeholder for Markdown content for Project 2 -->
-                <div id="markdown-content2"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/BLG454E-Learning-from-Data" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Stock Tracking Program</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>Stock Tracking Program</h1>
+                    <h3>Client Project</h3>
+                    <p>A warehouse inventory tracking system for monitoring inventory inputs/outputs and shipment information. Developed with Turkish interface for a local company.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>Tkinter</li><li>GUI</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/stock_tracking_program" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content3">
-                <!-- Placeholder for Markdown content for Project 3 -->
-                <div id="markdown-content3"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/YZV202E-Optimization-for-Data-Science" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Dataset Distillation</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>Dataset Distillation for Image Classification</h1>
+                    <h3>BLG454E - Learning from Data Course Project</h3>
+                    <p>Reducing the LSUN cat/dog dataset using random sampling, clustering, and data augmentation. CNNs trained on distilled datasets aim to match full dataset accuracy.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>TensorFlow</li><li>Keras</li><li>OpenCV</li><li>NumPy</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/BLG454E-Learning-from-Data" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content4">
-                <!-- Placeholder for Markdown content for Project 4 -->
-                <div id="markdown-content4"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/BLG202E-Numerical-Methods-in-CE" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Parking Optimization</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>İSPARK Parking Optimization</h1>
+                    <h3>YZV202E - Optimization for Data Science Course Project</h3>
+                    <p>Genetic algorithm-based optimization for car-to-parking lot matching in Istanbul. Considers budget, gas cost, and parking fees for optimal assignments.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>NumPy</li><li>Matplotlib</li><li>Pandas</li><li>Genetic Algorithm</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/YZV202E-Optimization-for-Data-Science" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content5">
-                <!-- Placeholder for Markdown content for Project 5 -->
-                <div id="markdown-content5"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/YZV211E-Intro-to-Data-Science-and-Eng." class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">SVD Item Filtering</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>SVD-Enhanced Item Filtering</h1>
+                    <h3>BLG202E - Numerical Methods Course Project</h3>
+                    <p>Paper implementation applying item-based filtering enhanced by Singular Value Decomposition for improved recommendation accuracy through dimensionality reduction.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>NumPy</li><li>Pandas</li><li>SVD</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/BLG202E-Numerical-Methods-in-CE" class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
-            <div class="content" id="content6">
-                <!-- Placeholder for Markdown content for Project 6 -->
-                <div id="markdown-content6"></div>
-                <a href="https://github.com/serdarbicici-visualstudio/YZV104E-Int.toPrg.forDataSci.-Python-" class="project-link-btn" >View in GitHub</a>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Education Analysis</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>Education & Employment Analysis</h1>
+                    <h3>YZV211E - Intro to Data Science Course Project</h3>
+                    <p>Analyzing the relationship between education levels and regional employment rates across Turkish provinces using TUIK data.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>NumPy</li><li>Pandas</li><li>Matplotlib</li><li>SciPy</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/YZV211E-Intro-to-Data-Science-and-Eng." class="project-link-btn">View on GitHub</a>
+                </div>
             </div>
+            
+            <div class="content">
+                <div class="window-titlebar">
+                    <div class="titlebar-left winxp-only">
+                        <div class="window-icon"></div>
+                    </div>
+                    <div class="window-buttons macos-only">
+                        <div class="window-btn close"></div>
+                        <div class="window-btn minimize"></div>
+                        <div class="window-btn maximize"></div>
+                    </div>
+                    <span class="window-title">Spelling Bee</span>
+                    <div class="window-buttons winxp-only">
+                        <div class="window-btn minimize">0</div>
+                        <div class="window-btn maximize">1</div>
+                        <div class="window-btn close">r</div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <h1>Spelling Bee Game</h1>
+                    <h3>YZV104E - Intro to Programming Course Project</h3>
+                    <p>A desktop word game inspired by NYT Spelling Bee. Features dictionary validation, hints, progress tracking, and additional gameplay options.</p>
+                    <h2>Technologies</h2>
+                    <ul><li>Python</li><li>Tkinter</li><li>BeautifulSoup</li><li>Requests</li></ul>
+                    <a href="https://github.com/serdarbicici-visualstudio/YZV104E-Int.toPrg.forDataSci.-Python-" class="project-link-btn">View on GitHub</a>
+                </div>
+            </div>
+            
+            <div class="footer macos-only">Made on a Mac</div>
+            <div class="footer winxp-only">Best viewed with Internet Explorer 6.0 | 1024x768</div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // Define your Markdown content for each project
-
-            const markdown9 = `
-# Restaurant API
-This project is a simple API for a restaurant management system. The API allows users to create, read, update, and delete restaurants and their menus. The project uses Flask, a Python web framework, to create the API endpoints and interact with the database. The API provides a RESTful interface for managing restaurant data and menu items.
-
-## Languages
-- Python
-
-## Libraries
-- Flask
-- SQLAlchemy
-- SQLite
-`;
-
-            const markdown8 = `
-# Evaluating Retrieval-Augmented Generation Techniques in the Tourism Domain of Istanbul
-
-This project evaluates the performance of retrieval-augmented generation techniques in the tourism domain of Istanbul. The project uses a dataset of tourism-related queries and responses to train and evaluate different models, including a baseline model, a retrieval model, and a retrieval-augmented generation model. The project aims to improve the quality of generated responses by incorporating retrieval-based techniques into the generation process.
-
-## Languages
-- Python
-
-## Libraries
-- Transformers
-- Hugging Face
-- PyTorch
-- NLTK
-`;
-
-
-
-            const markdown7 = `
-# Image Distillation
-This Python package aims to reduce the size of the image based datasets while preserving the important features of the images. The project uses clustering and grid based sampling techniques to distill the dataset, reducing the storage and processing requirements while maintaining the accuracy of the models trained on the distilled dataset.
-
-
-## Languages
-- Python
-
-## Libraries
-- NumPy
-- Matplotlib
-- Scikit-learn
-`;
-
-
-
-            const markdown0 = `
-# Tic-Tac-Toe with Q-Learning
-
-This project implements a Tic-Tac-Toe game using Q-Learning. The game allows the player to play against an AI agent that learns from its mistakes and improves its gameplay over time. The AI agent uses a Q-table to store the expected rewards for each action in a given state, updating the table based on the rewards received during gameplay.
-
-## Languages
-- Python
-
-## Libraries
-- Random
-- Copy
-
-`;
-
-            const markdown1 = `
-# Inventory Program
-Warehouse inventory tracking program for keeping track of inventory input & outputs and shipment information. Interface is Turkish and developed for a local company. 
-
-## Languages
-- Python
-
-## Libraries
-- Tkinter
-
-`;
-
-            const markdown2 = `
-# Dataset Distillation for Cat and Dog Image Classification
-### BLG454E - Learning from Data Course Project
-
-This project reduces the LSUN cat and dog dataset using random sampling, clustering, and data augmentation. Convolutional neural networks trained on these smaller datasets aim to match the accuracy of those trained on the full dataset, with less storage and processing required.
-
-## Languages
-- Python
-
-## Libraries
-- TensorFlow
-- Keras
-- OpenCV
-- NumPy
-- Scikit-learn
-`;
-
-
-            const markdown3 = `
-# Optimizing İSPARK Parking Lot Management in İstanbul
-### YZV202E - Optimization for Data Science Course Project
-
-This project uses a genetic algorithm, inspired by natural selection, to optimize car-to-parking lot matchups in Istanbul. The algorithm evolves solutions through selection, crossover, and mutation, considering factors like budget, gas cost, and parking cost. This approach aims to improve the traditional method of assigning cars to the nearest parking space, addressing the city's parking challenges.
-
-## Languages
-- Python
-
-## Libraries
-- NumPy
-- Matplotlib
-- Pandas
-`;
-            const markdown4 = `
-# Item-based Filtering Enhanced by SVD
-### BLG202E - Numerical Methods in Computer Engineering Course Project
-
-This was a paper implementation project that aimed to mathematically apply the item-based filtering method enhanced by Singular Value Decomposition to a dataset. The project aimed to improve the accuracy of the item-based filtering method by incorporating SVD, which is a matrix factorization technique that reduces the dimensionality of the dataset.
-
-## Languages
-- Python
-
-## Libraries
-- NumPy
-- Pandas
-
-
-
-`;
-            const markdown5 = `
-# Examining the Relationship of General Education Levels and Regional Employment in Turkey
-### YZV211E - Intro to Data Science and Engineering Course Project	
-
-This project aimed to analyze the relationship between the general education levels of Turkish provinces and the employment rates in those regions. The project used data from the Turkish Statistical Institute (TUIK) and aimed to identify any correlations between the two factors. The project involved data cleaning, visualization, and statistical analysis to draw conclusions about the relationship between education and employment in Turkey.
-
-## Languages
-- Python
-
-## Libraries
-- NumPy
-- Pandas
-- Matplotlib
-- SciPy
-
-`;
-            const markdown6 = `
-# Spelling Bee
-### YZV104 - Introduction to Programming for Data Science Course Project
-
-Spelling Bee is a desktop word game inspired by the New York Times. Players form valid words from randomly generated letters, validated against a dictionary. The game features hints, progress tracking, and supports additional gameplay options.
-
-## Languages
-- Python
-
-## Libraries
-- Tkinter
-- Matplotlib
-- Requests
-- BeautifulSoup
-
-
-`;
-
-
-            // Convert Markdown to HTML and set it to the respective content divs
-            document.getElementById('markdown-content9').innerHTML = marked.parse(markdown9);
-            document.getElementById('markdown-content8').innerHTML = marked.parse(markdown8);
-            document.getElementById('markdown-content7').innerHTML = marked.parse(markdown7);
-            document.getElementById('markdown-content0').innerHTML = marked.parse(markdown0);
-            document.getElementById('markdown-content1').innerHTML = marked.parse(markdown1);
-            document.getElementById('markdown-content2').innerHTML = marked.parse(markdown2);
-            document.getElementById('markdown-content3').innerHTML = marked.parse(markdown3);
-            document.getElementById('markdown-content4').innerHTML = marked.parse(markdown4);
-            document.getElementById('markdown-content5').innerHTML = marked.parse(markdown5);
-            document.getElementById('markdown-content6').innerHTML = marked.parse(markdown6);
-        });
-
-        // Hide menu when scrolled down
-        window.addEventListener
-        window.addEventListener('scroll', () => {
-            const menu = document.getElementById('menu');
-            if (window.scrollY > 0) {
-                menu.classList.add('hidden');
-            } else {
-                menu.classList.remove('hidden');
-            }
-        });
+        function setTheme(theme) {
+            document.body.className = theme;
+            localStorage.setItem('portfolio-theme', theme);
+            document.getElementById('btn-macos').classList.toggle('active', theme === 'macos');
+            document.getElementById('btn-winxp').classList.toggle('active', theme === 'winxp');
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('portfolio-theme') || 'macos';
+        setTheme(savedTheme);
+        
+        // Update clock for XP taskbar
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            document.getElementById('clock').textContent = `${displayHours}:${minutes} ${ampm}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
     </script>
 </body>
 </html>
