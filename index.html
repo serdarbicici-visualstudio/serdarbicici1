@@ -26,6 +26,11 @@
             overflow: hidden;
         }
         
+        /* Hide everything until theme is set */
+        body:not(.macos):not(.winxp) * {
+            visibility: hidden;
+        }
+        
         /* ==================== macOS Theme ==================== */
         body.macos {
             font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -40,8 +45,6 @@
             background-image: url('10-7.png');
             background-size: cover;
             background-position: center;
-            opacity: 0;
-            animation: fadeIn 1.5s forwards 0.001s;
         }
         
         /* macOS Menu Bar - Always visible */
@@ -105,8 +108,6 @@
             min-width: 450px;
             display: flex;
             flex-direction: column;
-            opacity: 0;
-            animation: fadeInBox 1s forwards 0.5s;
             overflow: hidden;
         }
         
@@ -230,16 +231,6 @@
             border-color: #111827;
         }
         
-        body.macos .footer {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            color: rgba(255,255,255,0.8);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-        
         /* ==================== Windows XP Theme ==================== */
         body.winxp {
             font-family: 'Tahoma', 'Trebuchet MS', Arial, sans-serif;
@@ -254,8 +245,6 @@
             background-image: url('bliss.jpg');
             background-size: cover;
             background-position: center;
-            opacity: 0;
-            animation: fadeIn 1.5s forwards 0.001s;
         }
         
         /* Windows XP Taskbar */
@@ -377,8 +366,6 @@
             min-width: 450px;
             display: flex;
             flex-direction: column;
-            opacity: 0;
-            animation: fadeInBox 1s forwards 0.5s;
             overflow: hidden;
         }
         
@@ -408,18 +395,12 @@
             gap: 5px;
         }
         
-        body.winxp .window-icon {
-            width: 16px;
-            height: 16px;
-            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-            border-radius: 2px;
-        }
-        
         body.winxp .titlebar-text {
             color: white;
             font-size: 13px;
             font-weight: bold;
             text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            flex: 1;
         }
         
         body.winxp .window-buttons {
@@ -512,24 +493,15 @@
             background: linear-gradient(180deg, #d4d0c8 0%, #ece9d8 100%);
         }
         
-        body.winxp .footer {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 10px;
-            color: rgba(0,0,0,0.6);
-            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-        }
-        
-        /* ==================== Theme Switcher ==================== */
+        /* ==================== Theme Switcher - Toggle Style ==================== */
         .theme-switcher {
             position: fixed;
             top: 5px;
             right: 10px;
             z-index: 99999;
             display: flex;
-            gap: 5px;
+            align-items: center;
+            gap: 8px;
         }
         
         body.winxp .theme-switcher {
@@ -537,50 +509,74 @@
             top: auto;
         }
         
-        .theme-switcher button {
-            padding: 4px 10px;
+        .theme-switcher .theme-label {
             font-size: 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .theme-switcher button.active {
-            font-weight: bold;
-        }
-        
-        body.macos .theme-switcher button {
-            background: rgba(255,255,255,0.8);
-            border: 1px solid #999;
             color: #333;
         }
         
-        body.macos .theme-switcher button.active {
-            background: #007aff;
-            color: white;
-            border-color: #0066dd;
+        body.macos .theme-switcher .theme-label {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
         
-        body.winxp .theme-switcher button {
-            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
-            border: 1px solid #848484;
+        body.winxp .theme-switcher .theme-label {
             color: #000;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
         }
         
-        body.winxp .theme-switcher button.active {
-            background: linear-gradient(180deg, #316ac5 0%, #1e5cb8 100%);
-            color: white;
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, #3c8cff 0%, #2070e0 50%, #1860d0 100%);
+            border-radius: 12px;
+            border: 1px solid #1050a0;
+            transition: all 0.3s;
+        }
+        
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 2px;
+            top: 2px;
+            background: linear-gradient(180deg, #fff 0%, #e0e0e0 100%);
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background: linear-gradient(180deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+            border-color: #15803d;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(26px);
         }
         
         /* Hide elements based on theme */
         body.macos .winxp-only { display: none !important; }
         body.winxp .macos-only { display: none !important; }
-        
-        @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes fadeInBox { to { opacity: 1; } }
     </style>
 </head>
-<body class="macos">
+<body>
     <div class="bg-image"></div>
     
     <!-- macOS Menu Bar -->
@@ -612,23 +608,29 @@
         <div class="systray" id="clock">12:00 PM</div>
     </div>
     
-    <!-- Theme Switcher -->
+    <!-- Theme Switcher - Toggle -->
     <div class="theme-switcher">
-        <button id="btn-macos" class="active" onclick="setTheme('macos')">macOS</button>
-        <button id="btn-winxp" onclick="setTheme('winxp')">Windows XP</button>
+        <span class="theme-label macos-only">macOS</span>
+        <span class="theme-label winxp-only">XP</span>
+        <label class="toggle-switch">
+            <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+            <span class="toggle-slider"></span>
+        </label>
+        <span class="theme-label macos-only">XP</span>
+        <span class="theme-label winxp-only">macOS</span>
     </div>
     
     <div class="content">
         <div class="titlebar">
             <div class="titlebar-left winxp-only">
-                <div class="window-icon"></div>
+                <span class="titlebar-text">Welcome</span>
             </div>
             <div class="window-buttons macos-only">
                 <div class="window-btn close"></div>
                 <div class="window-btn minimize"></div>
                 <div class="window-btn maximize"></div>
             </div>
-            <span class="titlebar-text">Welcome</span>
+            <span class="titlebar-text macos-only">Welcome</span>
             <div class="window-buttons winxp-only">
                 <div class="window-btn minimize">0</div>
                 <div class="window-btn maximize">1</div>
@@ -653,19 +655,21 @@
             </div>
         </div>
     </div>
-    
-    <div class="footer macos-only">Made on a Mac</div>
-    <div class="footer winxp-only">Best viewed with Internet Explorer 6.0 | 1024x768</div>
 
     <script>
-        function setTheme(theme) {
+        function toggleTheme() {
+            const isChecked = document.getElementById('theme-toggle').checked;
+            const theme = isChecked ? 'winxp' : 'macos';
             document.body.className = theme;
             localStorage.setItem('portfolio-theme', theme);
-            document.getElementById('btn-macos').classList.toggle('active', theme === 'macos');
-            document.getElementById('btn-winxp').classList.toggle('active', theme === 'winxp');
         }
         
-        // Load saved theme
+        function setTheme(theme) {
+            document.body.className = theme;
+            document.getElementById('theme-toggle').checked = (theme === 'winxp');
+        }
+        
+        // Load saved theme immediately
         const savedTheme = localStorage.getItem('portfolio-theme') || 'macos';
         setTheme(savedTheme);
         
@@ -681,283 +685,5 @@
         updateClock();
         setInterval(updateClock, 1000);
     </script>
-</body>
-</html>
-            background: linear-gradient(180deg, 
-                #c8c8c8 0%, 
-                #b8b8b8 45%, 
-                #a8a8a8 50%, 
-                #b0b0b0 55%, 
-                #c0c0c0 100%);
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #666;
-            position: relative;
-        }
-        
-        /* Traffic light buttons */
-        .window-buttons {
-            display: flex;
-            gap: 8px;
-            position: absolute;
-            left: 12px;
-        }
-        
-        .window-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 1px solid rgba(0,0,0,0.3);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
-        }
-        
-        .window-btn.close {
-            background: linear-gradient(180deg, #ff6b6b 0%, #ff4757 50%, #c0392b 100%);
-        }
-        
-        .window-btn.minimize {
-            background: linear-gradient(180deg, #ffd93d 0%, #f9ca24 50%, #f39c12 100%);
-        }
-        
-        .window-btn.maximize {
-            background: linear-gradient(180deg, #6bcb77 0%, #2ed573 50%, #27ae60 100%);
-        }
-        
-        .titlebar-text {
-            flex: 1;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            color: #333;
-            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-        }
-        
-        /* Content area with subtle pinstripes */
-        .window-content {
-            padding: 40px 50px;
-            background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
-            position: relative;
-        }
-        
-        .window-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 1px,
-                rgba(0,0,0,0.02) 1px,
-                rgba(0,0,0,0.02) 2px
-            );
-            pointer-events: none;
-        }
-        
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            /* Aqua gel orb */
-            background: linear-gradient(180deg, 
-                #7ed6ff 0%, 
-                #4fc3f7 20%, 
-                #29b6f6 50%, 
-                #0288d1 80%, 
-                #01579b 100%);
-            border: 3px solid white;
-            box-shadow: 
-                0 4px 15px rgba(0,136,209,0.5),
-                inset 0 -20px 30px rgba(0,0,0,0.1),
-                inset 0 10px 20px rgba(255,255,255,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Aqua shine on avatar */
-        .avatar::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 15%;
-            right: 15%;
-            height: 35%;
-            background: linear-gradient(180deg, 
-                rgba(255,255,255,0.8) 0%, 
-                rgba(255,255,255,0.2) 100%);
-            border-radius: 50%;
-        }
-        
-        .avatar-text {
-            font-size: 36px;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            font-weight: bold;
-        }
-        
-        .content h1 {
-            font-size: 32px;
-            font-weight: 400;
-            margin: 0 0 8px 0;
-            color: #1a1a1a;
-            letter-spacing: -0.5px;
-        }
-        
-        .subtitle {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 4px;
-        }
-        
-        .university {
-            font-size: 13px;
-            color: #777;
-            margin-bottom: 30px;
-        }
-        
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Aqua Gel Button */
-        .buttons button {
-            background: linear-gradient(180deg, 
-                #7dd3fc 0%, 
-                #38bdf8 15%, 
-                #0ea5e9 45%, 
-                #0284c7 55%, 
-                #0369a1 100%);
-            border: 1px solid #075985;
-            border-radius: 18px;
-            color: white;
-            padding: 10px 24px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            box-shadow: 
-                0 3px 8px rgba(3,105,161,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.4),
-                inset 0 -1px 0 rgba(0,0,0,0.1);
-            text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-            font-family: 'Lucida Grande', sans-serif;
-        }
-        
-        /* Aqua shine */
-        .buttons button::before {
-            content: '';
-            position: absolute;
-            top: 1px;
-            left: 10%;
-            right: 10%;
-            height: 45%;
-            background: linear-gradient(180deg, 
-                rgba(255,255,255,0.5) 0%, 
-                rgba(255,255,255,0.1) 100%);
-            border-radius: 15px 15px 50% 50%;
-        }
-        
-        .buttons button:hover {
-            background: linear-gradient(180deg, 
-                #93e0fd 0%, 
-                #5cc8f9 15%, 
-                #2eb3f0 45%, 
-                #1a9cd8 55%, 
-                #0c7bb8 100%);
-            box-shadow: 
-                0 4px 12px rgba(3,105,161,0.5),
-                inset 0 1px 0 rgba(255,255,255,0.5),
-                inset 0 -1px 0 rgba(0,0,0,0.1);
-        }
-        
-        .buttons button:active {
-            background: linear-gradient(180deg, 
-                #0369a1 0%, 
-                #0284c7 45%, 
-                #0ea5e9 55%, 
-                #38bdf8 85%, 
-                #7dd3fc 100%);
-            box-shadow: 
-                inset 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        /* Graphite button variant */
-        .buttons button.graphite {
-            background: linear-gradient(180deg, 
-                #9ca3af 0%, 
-                #6b7280 15%, 
-                #4b5563 45%, 
-                #374151 55%, 
-                #1f2937 100%);
-            border-color: #111827;
-        }
-        
-        .buttons button.graphite:hover {
-            background: linear-gradient(180deg, 
-                #b0b7c0 0%, 
-                #7f8694 15%, 
-                #5f6978 45%, 
-                #4b5563 55%, 
-                #374151 100%);
-        }
-        
-        .footer {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            color: rgba(0,0,0,0.5);
-            z-index: 100;
-        }
-    </style>
-</head>
-<body>
-    <div class="bg-image"></div>
-    
-    <div class="content">
-        <div class="titlebar">
-            <div class="window-buttons">
-                <div class="window-btn close"></div>
-                <div class="window-btn minimize"></div>
-                <div class="window-btn maximize"></div>
-            </div>
-            <span class="titlebar-text">Welcome</span>
-        </div>
-        
-        <div class="window-content">
-            <div class="avatar">
-                <span class="avatar-text">SB</span>
-            </div>
-            <h1>Serdar Biçici</h1>
-            <p class="subtitle">AI & Data Engineering Student</p>
-            <p class="university">İstanbul Technical University</p>
-            
-            <div class="buttons">
-                <button onclick="window.location.href='about-me.html'">About Me</button>
-                <button onclick="window.location.href='projects.html'">Projects</button>
-                <button class="graphite" onclick="window.location.href='https://github.com/serdarbicici-visualstudio'">GitHub</button>
-                <button onclick="window.location.href='https://www.linkedin.com/in/serdarbicici/'">LinkedIn</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="footer">
-        Made on a Mac
-    </div>
 </body>
 </html>

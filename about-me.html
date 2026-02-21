@@ -25,6 +25,11 @@
             min-height: 100%;
         }
         
+        /* Hide everything until theme is set */
+        body:not(.macos):not(.winxp) * {
+            visibility: hidden;
+        }
+        
         /* ==================== macOS Theme ==================== */
         body.macos {
             font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -40,24 +45,6 @@
                 #b8d4e8 80%, 
                 #d4e6f1 100%);
             position: relative;
-        }
-        
-        body.macos .bg-image::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 1px,
-                rgba(255,255,255,0.02) 1px,
-                rgba(255,255,255,0.02) 2px
-            );
-            pointer-events: none;
-            z-index: 0;
         }
         
         /* macOS Menu Bar - Always visible */
@@ -292,13 +279,6 @@
             border-color: #14532d;
         }
         
-        body.macos .footer {
-            text-align: center;
-            padding: 20px;
-            color: rgba(0,0,0,0.5);
-            font-size: 11px;
-        }
-        
         /* ==================== Windows XP Theme ==================== */
         body.winxp {
             font-family: 'Tahoma', 'Trebuchet MS', Arial, sans-serif;
@@ -434,18 +414,12 @@
             gap: 5px;
         }
         
-        body.winxp .window-icon {
-            width: 16px;
-            height: 16px;
-            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-            border-radius: 2px;
-        }
-        
         body.winxp .window-title {
             color: white;
             font-size: 13px;
             font-weight: bold;
             text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            flex: 1;
         }
         
         body.winxp .window-buttons {
@@ -567,22 +541,15 @@
             color: #000;
         }
         
-        body.winxp .footer {
-            text-align: center;
-            padding: 20px;
-            color: rgba(0,0,0,0.6);
-            font-size: 10px;
-            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-        }
-        
-        /* ==================== Theme Switcher ==================== */
+        /* ==================== Theme Switcher - Toggle Style ==================== */
         .theme-switcher {
             position: fixed;
             top: 5px;
             right: 10px;
             z-index: 99999;
             display: flex;
-            gap: 5px;
+            align-items: center;
+            gap: 8px;
         }
         
         body.winxp .theme-switcher {
@@ -590,37 +557,65 @@
             top: auto;
         }
         
-        .theme-switcher button {
-            padding: 4px 10px;
+        .theme-switcher .theme-label {
             font-size: 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .theme-switcher button.active { font-weight: bold; }
-        
-        body.macos .theme-switcher button {
-            background: rgba(255,255,255,0.8);
-            border: 1px solid #999;
             color: #333;
         }
         
-        body.macos .theme-switcher button.active {
-            background: #007aff;
-            color: white;
-            border-color: #0066dd;
+        body.macos .theme-switcher .theme-label {
+            color: rgba(0,0,0,0.7);
         }
         
-        body.winxp .theme-switcher button {
-            background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
-            border: 1px solid #848484;
+        body.winxp .theme-switcher .theme-label {
             color: #000;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
         }
         
-        body.winxp .theme-switcher button.active {
-            background: linear-gradient(180deg, #316ac5 0%, #1e5cb8 100%);
-            color: white;
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, #3c8cff 0%, #2070e0 50%, #1860d0 100%);
+            border-radius: 12px;
+            border: 1px solid #1050a0;
+            transition: all 0.3s;
+        }
+        
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 2px;
+            top: 2px;
+            background: linear-gradient(180deg, #fff 0%, #e0e0e0 100%);
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background: linear-gradient(180deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+            border-color: #15803d;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(26px);
         }
         
         /* Hide elements based on theme */
@@ -628,7 +623,7 @@
         body.winxp .macos-only { display: none !important; }
     </style>
 </head>
-<body class="macos">
+<body>
     <div class="bg-image">
         <!-- macOS Menu Bar -->
         <div class="menubar macos-only">
@@ -659,24 +654,30 @@
             <div class="systray" id="clock">12:00 PM</div>
         </div>
         
-        <!-- Theme Switcher -->
+        <!-- Theme Switcher - Toggle -->
         <div class="theme-switcher">
-            <button id="btn-macos" class="active" onclick="setTheme('macos')">macOS</button>
-            <button id="btn-winxp" onclick="setTheme('winxp')">Windows XP</button>
+            <span class="theme-label macos-only">macOS</span>
+            <span class="theme-label winxp-only">XP</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+                <span class="toggle-slider"></span>
+            </label>
+            <span class="theme-label macos-only">XP</span>
+            <span class="theme-label winxp-only">macOS</span>
         </div>
         
         <div class="content-container">
             <div class="content">
                 <div class="window-titlebar">
                     <div class="titlebar-left winxp-only">
-                        <div class="window-icon"></div>
+                        <span class="window-title">About Me</span>
                     </div>
                     <div class="window-buttons macos-only">
                         <div class="window-btn close"></div>
                         <div class="window-btn minimize"></div>
                         <div class="window-btn maximize"></div>
                     </div>
-                    <span class="window-title">About Me</span>
+                    <span class="window-title macos-only">About Me</span>
                     <div class="window-buttons winxp-only">
                         <div class="window-btn minimize">0</div>
                         <div class="window-btn maximize">1</div>
@@ -695,7 +696,7 @@
                         </div>
                     </div>
                     
-                    <p>Hello there! I'm <strong>Serdar Biçici</strong>, a senior student at <em>İstanbul Technical University</em>, studying <em>Artificial Intelligence and Data Engineering</em>. I'm the ex-president of the <strong>ITU Artificial Intelligence Club</strong> and the current chairman of the <strong>Supervisory Board</strong>. I'm an engineering enthusiast and a computer science lover. I also enjoy sci-fi, sports, and LEGOs.</p>
+                    <p>Hello there! I'm <strong>Serdar Biçici</strong>, a senior student at <em>İstanbul Technical University</em>, studying <em>Artificial Intelligence and Data Engineering</em>. I'm the ex-president of the <strong>ITU Artificial Intelligence Club</strong> and chairman of the <strong>Supervisory Board</strong>. I'm an engineering enthusiast and a computer science lover. I also enjoy sci-fi, sports, and LEGOs.</p>
                     
                     <h2>Education</h2>
                     <ul>
@@ -705,7 +706,7 @@
                     
                     <h2>Experience</h2>
                     <ul>
-                        <li><strong>Borsa İstanbul</strong> — <em>Information Management Application Development Directorate - Infrastructure Applications Development part-time intern</em> (March 2025 - Present)</li>
+                        <li><strong>Borsa İstanbul</strong> — <em>Big Data Analyst & Data Scientist Intern</em> (March 2025 - Present)</li>
                         <li><strong>ESO Endüstriyel Elektronik AŞ</strong> — <em>Anatolian Technical High School Intern</em> (June-July 2019)</li>
                     </ul>
                     
@@ -734,20 +735,22 @@
                 </div>
             </div>
         </div>
-        
-        <div class="footer macos-only">Made on a Mac</div>
-        <div class="footer winxp-only">Best viewed with Internet Explorer 6.0 | 1024x768</div>
     </div>
 
     <script>
-        function setTheme(theme) {
+        function toggleTheme() {
+            const isChecked = document.getElementById('theme-toggle').checked;
+            const theme = isChecked ? 'winxp' : 'macos';
             document.body.className = theme;
             localStorage.setItem('portfolio-theme', theme);
-            document.getElementById('btn-macos').classList.toggle('active', theme === 'macos');
-            document.getElementById('btn-winxp').classList.toggle('active', theme === 'winxp');
         }
         
-        // Load saved theme
+        function setTheme(theme) {
+            document.body.className = theme;
+            document.getElementById('theme-toggle').checked = (theme === 'winxp');
+        }
+        
+        // Load saved theme immediately
         const savedTheme = localStorage.getItem('portfolio-theme') || 'macos';
         setTheme(savedTheme);
         
